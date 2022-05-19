@@ -3,8 +3,6 @@ import './App.css';
 import CorgiImg from '../../public/assets/corgi.jpg';
 
 export const App = () => {
-    console.log(CorgiImg);
-
     return (
         <div className="app">
             <h1>Hello React!</h1>

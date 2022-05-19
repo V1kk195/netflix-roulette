@@ -5,11 +5,6 @@ module.exports = {
     entry: {
         index: './src/index.tsx',
     },
-    output: {
-        filename: '[name].bundle.js',
-        path: path.resolve(__dirname, 'build'),
-        clean: true,
-    },
     module: {
         rules: [
             {
@@ -28,6 +23,7 @@ module.exports = {
         ],
     },
     resolve: {
+        modules: [path.resolve(__dirname, './src'), 'node_modules'],
         extensions: ['.tsx', '.ts', '.js', '.jsx'],
     },
     plugins: [
