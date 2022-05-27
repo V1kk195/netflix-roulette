@@ -4,6 +4,7 @@ import styled from "styled-components";
 import './App.css';
 import { Header } from "../header";
 import {Footer} from "../footer";
+import {Main} from "../main";
 
 
 export const App = () => {
@@ -16,6 +17,7 @@ export const App = () => {
     return (
         <App className='app'>
             <Header />
+            <Main />
             <Footer />
         </App>
     );
