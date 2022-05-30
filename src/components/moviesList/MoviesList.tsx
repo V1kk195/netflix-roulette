@@ -20,9 +20,10 @@ export const MoviesList = ({movies}: Props): JSX.Element => {
             <MoviesCount>33 movies found</MoviesCount>
             <Grid>
                 {movies.map((movie) => {
-                    return (<div key={movie.id}>
-                        <MovieItem {...movie} />
-                    </div>)
+                    return (
+                        <div key={movie.id}>
+                            <MovieItem {...movie} />
+                        </div>)
                 })}
             </Grid>
         </div>
