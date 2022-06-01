@@ -1,10 +1,10 @@
-import * as React from "react"
+import * as React from "react";
 import styled from "styled-components";
 
-export const Sort = () => {
+export function Sort() {
     const Label = styled.label`
-      margin-right: 30px;
-      text-transform: uppercase;
+        margin-right: 30px;
+        text-transform: uppercase;
     `;
 
     return (
@@ -15,5 +15,5 @@ export const Sort = () => {
                 <option>2</option>
             </select>
         </div>
-    )
+    );
 }

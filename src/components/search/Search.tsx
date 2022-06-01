@@ -1,9 +1,8 @@
 import * as React from "react";
-import { Button } from "../../shared/button/Button";
 import styled from "styled-components";
+import { Button } from "../../shared/button/Button";
 
-export const Search = (): JSX.Element => {
-
+export function Search(): JSX.Element {
     const Form = styled.form`
         height: 57px;
         display: flex;
@@ -19,23 +18,23 @@ export const Search = (): JSX.Element => {
         font-size: 20px;
         padding: 15px 20px;
         color: #fff;
-      
+
         &::placeholder {
             opacity: 0.3;
         }
     `;
 
     const ButtonSearch = styled(Button)`
-        background-color: #F65261;
+        background-color: #f65261;
         width: 25%;
-      color: #fff;
-      font-weight: 500;
+        color: #fff;
+        font-weight: 500;
     `;
 
     return (
         <Form>
-            <Input type='text' placeholder="What do you want to watch?" />
-            <ButtonSearch type='submit'>SEARCH</ButtonSearch>
+            <Input type="text" placeholder="What do you want to watch?" />
+            <ButtonSearch type="submit">SEARCH</ButtonSearch>
         </Form>
     );
 }

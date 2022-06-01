@@ -3,12 +3,16 @@ import { ReactNode } from "react";
 import styled from "styled-components";
 
 type ButtonProps = {
-    children: ReactNode,
-    type?: 'button' | 'submit' | 'reset',
-    className?: string,
+    children: ReactNode;
+    type?: "button" | "submit" | "reset";
+    className?: string;
 };
 
-export const Button = ({ children, type = 'button', className }: ButtonProps): JSX.Element => {
+export function Button({
+    children,
+    type = "button",
+    className,
+}: ButtonProps): JSX.Element {
     const Button = styled.button`
         border: none;
         border-radius: 4px;
@@ -17,5 +21,9 @@ export const Button = ({ children, type = 'button', className }: ButtonProps): J
         text-transform: uppercase;
     `;
 
-    return <Button type={type} className={className}>{children}</Button>;
+    return (
+        <Button type={type} className={className}>
+            {children}
+        </Button>
+    );
 }

@@ -1,18 +1,18 @@
-import * as React from 'react';
+import * as React from "react";
 import styled from "styled-components";
 
-import LogoImg from '../../../public/assets/logo.svg';
-import BgImage from '../../../public/assets/header_bg.png';
-import {Row} from "../../shared/allignment";
-import {Button} from "../../shared/button/Button";
-import {Search} from "../search";
+import LogoImg from "../../../public/assets/logo.svg";
+import BgImage from "../../../public/assets/header_bg.png";
+import { Row } from "../../shared/allignment";
+import { Button } from "../../shared/button/Button";
+import { Search } from "../search";
 
-export const Header = (): JSX.Element => {
+export function Header(): JSX.Element {
     const Header = styled.header`
         background-image: url(${BgImage});
         background-repeat: no-repeat;
         padding: 20px 60px;
-      height: 396px;
+        height: 396px;
     `;
 
     const MainBlock = styled.div`
@@ -22,10 +22,10 @@ export const Header = (): JSX.Element => {
 
     const ButtonAddMovie = styled(Button)`
         height: 46px;
-      width: 177px;
-      background-color: rgba(96, 96, 96, 0.68);
-      color: #F65261;
-      font-weight: 600;
+        width: 177px;
+        background-color: rgba(96, 96, 96, 0.68);
+        color: #f65261;
+        font-weight: 600;
     `;
 
     const TopRow = styled(Row)`
@@ -35,7 +35,7 @@ export const Header = (): JSX.Element => {
     return (
         <Header>
             <TopRow>
-                <img src={LogoImg} alt='netflix roulette logo' />
+                <img src={LogoImg} alt="netflix roulette logo" />
                 <ButtonAddMovie>+ Add movie</ButtonAddMovie>
             </TopRow>
             <MainBlock>
@@ -43,5 +43,5 @@ export const Header = (): JSX.Element => {
                 <Search />
             </MainBlock>
         </Header>
-    )
+    );
 }
