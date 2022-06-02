@@ -5,6 +5,7 @@ import "./App.css";
 import { Header } from "../header";
 import { Footer } from "../footer";
 import { Main } from "../main";
+import { ErrorBoundary } from "../../shared/errorBoundary";
 
 export function App() {
     const App = styled.div`
@@ -15,9 +16,17 @@ export function App() {
 
     return (
         <App className="app">
-            <Header />
-            <Main />
-            <Footer />
+            <ErrorBoundary>
+                <Header />
+            </ErrorBoundary>
+
+            <ErrorBoundary>
+                <Main />
+            </ErrorBoundary>
+
+            <ErrorBoundary>
+                <Footer />
+            </ErrorBoundary>
         </App>
     );
 }
