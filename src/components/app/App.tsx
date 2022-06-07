@@ -6,6 +6,8 @@ import { Header } from "../header";
 import { Footer } from "../footer";
 import { Main } from "../main";
 import { ErrorBoundary } from "../../shared/errorBoundary";
+import { Modal } from "../../shared/modal";
+import { AddMovieForm } from "../addMovieForm";
 
 export function App() {
     const App = styled.div`
@@ -27,6 +29,12 @@ export function App() {
 
                 <ErrorBoundary>
                     <Footer />
+                </ErrorBoundary>
+
+                <ErrorBoundary>
+                    <Modal title="My Modal">
+                        <AddMovieForm />
+                    </Modal>
                 </ErrorBoundary>
             </App>
         </ErrorBoundary>
