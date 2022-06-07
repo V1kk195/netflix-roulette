@@ -13,20 +13,22 @@ export function App() {
         max-width: 1200px;
         margin: 0 auto;
     `;
-
+    //TODO add layout components
     return (
-        <App className="app">
-            <ErrorBoundary>
-                <Header />
-            </ErrorBoundary>
+        <ErrorBoundary>
+            <App className="app">
+                <ErrorBoundary>
+                    <Header />
+                </ErrorBoundary>
 
-            <ErrorBoundary>
-                <Main />
-            </ErrorBoundary>
+                <ErrorBoundary>
+                    <Main />
+                </ErrorBoundary>
 
-            <ErrorBoundary>
-                <Footer />
-            </ErrorBoundary>
-        </App>
+                <ErrorBoundary>
+                    <Footer />
+                </ErrorBoundary>
+            </App>
+        </ErrorBoundary>
     );
 }
