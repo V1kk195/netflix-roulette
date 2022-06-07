@@ -1,13 +1,13 @@
-const { merge } = require('webpack-merge');
-const common = require('./webpack.config.common.js');
+const { merge } = require("webpack-merge");
+const common = require("./webpack.config.common.js");
 const path = require("path");
 
 module.exports = merge(common, {
-    mode: 'production',
+    mode: "production",
     output: {
-        filename: '[name][contenthash].bundle.js',
-        chunkFilename: '[name][contenthash].bundle.js',
-        path: path.resolve(__dirname, 'build'),
+        filename: "[name][contenthash].bundle.js",
+        chunkFilename: "[name][contenthash].bundle.js",
+        path: path.resolve(__dirname, "build"),
         clean: true,
     },
     devServer: {
@@ -16,13 +16,13 @@ module.exports = merge(common, {
         },
         compress: true,
         open: true,
-        watchFiles: ['src/**/*', 'public/**/*'],
+        watchFiles: ["src/**/*", "public/**/*"],
         port: 9000,
     },
     devtool: false,
     optimization: {
         splitChunks: {
-            chunks: 'all',
-        }
+            chunks: "all",
+        },
     },
 });

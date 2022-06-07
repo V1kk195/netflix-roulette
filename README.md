@@ -1,7 +1,8 @@
 # React study project
 
 ## Technologies
-- React
-- Webpack
-- Typescript
-- Redux
+
+-   React
+-   Webpack
+-   Typescript
+-   Redux
