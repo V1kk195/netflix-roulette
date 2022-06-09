@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useState } from "react";
 
 import { Row } from "../../shared/allignment";
-import contextMenuButton from "../../../public/assets/context_menu_button.svg";
+import contextMenuButton from "../../../public/assets/icons/context_menu_button.svg";
 import { Button } from "../../shared/button";
 
 type Props = {

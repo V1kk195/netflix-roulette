@@ -5,9 +5,10 @@ import { InputTypes } from "../../types/global.types";
 
 type Props = {
     type: InputTypes;
+    placeholder?: string;
 };
 
-export const Input = ({ type }: Props): JSX.Element => {
+export const Input = ({ type, placeholder }: Props): JSX.Element => {
     const [value, setValue] = useState("");
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
@@ -15,6 +16,11 @@ export const Input = ({ type }: Props): JSX.Element => {
     };
 
     return (
-        <input type={type} value={value} onChange={(e) => handleChange(e)} />
+        <input
+            type={type}
+            value={value}
+            placeholder={placeholder}
+            onChange={(e) => handleChange(e)}
+        />
     );
 };

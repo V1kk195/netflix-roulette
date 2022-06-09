@@ -1,5 +1,5 @@
 import * as React from "react";
-import styled from "styled-components";
+import { useState } from "react";
 
 import "./App.css";
 import { Header } from "../header";
@@ -7,20 +7,25 @@ import { Footer } from "../footer";
 import { Main } from "../main";
 import { ErrorBoundary } from "../../shared/errorBoundary";
 import { Modal } from "../../shared/modal";
-import { AddMovieForm } from "../addMovieForm";
+import { AppContainer } from "./AppStyles";
+import { ModalName } from "../../types/global.types";
 
-export function App() {
-    const App = styled.div`
-        background-color: #232323;
-        max-width: 1200px;
-        margin: 0 auto;
-    `;
-    //TODO add layout components
+export function App(): JSX.Element {
+    const [isModalVisible, setIsModalVisible] = useState(false);
+    const [modalName, setModalName] = useState<ModalName>();
+
+    const handleModalOpenClose = (): void => {
+        setIsModalVisible((prevState) => !prevState);
+    };
+
     return (
         <ErrorBoundary>
-            <App className="app">
+            <AppContainer className="app">
                 <ErrorBoundary>
-                    <Header />
+                    <Header
+                        modalOpenHandler={handleModalOpenClose}
+                        setModalName={setModalName}
+                    />
                 </ErrorBoundary>
 
                 <ErrorBoundary>
@@ -32,11 +37,13 @@ export function App() {
                 </ErrorBoundary>
 
                 <ErrorBoundary>
-                    <Modal title="My Modal">
-                        <AddMovieForm />
-                    </Modal>
+                    <Modal
+                        name={modalName}
+                        isVisible={isModalVisible}
+                        modalCloseHandler={handleModalOpenClose}
+                    />
                 </ErrorBoundary>
-            </App>
+            </AppContainer>
         </ErrorBoundary>
     );
 }

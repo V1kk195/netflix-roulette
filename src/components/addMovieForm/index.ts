@@ -1,1 +1,1 @@
-export * from "./AddMovieForm";
+export * from "./Form";

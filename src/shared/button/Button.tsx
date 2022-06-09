@@ -6,12 +6,16 @@ type ButtonProps = {
     children: ReactNode;
     type?: "button" | "submit" | "reset";
     className?: string;
+    onClick?: () => void;
+    form?: string;
 };
 
 export function Button({
     children,
     type = "button",
     className,
+    onClick,
+    form,
 }: ButtonProps): JSX.Element {
     const Button = styled.button`
         border: none;
@@ -22,7 +26,7 @@ export function Button({
     `;
 
     return (
-        <Button type={type} className={className}>
+        <Button type={type} className={className} onClick={onClick} form={form}>
             {children}
         </Button>
     );
