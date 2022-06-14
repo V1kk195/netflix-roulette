@@ -1,19 +1,21 @@
 import * as React from "react";
-import styled from "styled-components";
+
+import { Label, SelectElem } from "./Sort.styles";
+import { IdName } from "../../types/global.types";
+
+const options: IdName[] = [
+    { id: "title", name: "title" },
+    { id: "genre", name: "genre" },
+    { id: "releaseDate", name: "release date" },
+    { id: "rating", name: "rating" },
+    { id: "runtime", name: "runtime" },
+];
 
 export function Sort() {
-    const Label = styled.label`
-        margin-right: 30px;
-        text-transform: uppercase;
-    `;
-
     return (
         <div>
             <Label>Sort by</Label>
-            <select>
-                <option>1</option>
-                <option>2</option>
-            </select>
+            <SelectElem options={options} />
         </div>
     );
 }

@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ReactNode, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import {
     ButtonClose,
@@ -7,7 +7,7 @@ import {
     ButtonsContainer,
     ModalContainer,
     Overlay,
-} from "./ModalStyles";
+} from "./Modal.styles";
 import closeIcon from "../../../public/assets/icons/close-button.svg";
 import { ButtonType, forms, FormType } from "../../data/forms";
 import { Form } from "../../components/addMovieForm";
@@ -53,7 +53,7 @@ export const Modal = ({
                 >
                     <img src={closeIcon} alt="close_button" />
                 </ButtonClose>
-                <h1>{content?.title}</h1>
+                <h1>{content?.title.toUpperCase()}</h1>
 
                 {content?.data && typeof content.data !== "string" && (
                     <Form data={content.data} />

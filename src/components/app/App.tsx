@@ -7,7 +7,7 @@ import { Footer } from "../footer";
 import { Main } from "../main";
 import { ErrorBoundary } from "../../shared/errorBoundary";
 import { Modal } from "../../shared/modal";
-import { AppContainer } from "./AppStyles";
+import { AppContainer } from "./App.styles";
 import { ModalName } from "../../types/global.types";
 
 export function App(): JSX.Element {

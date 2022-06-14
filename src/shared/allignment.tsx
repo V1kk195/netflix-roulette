@@ -1,6 +1,11 @@
 import * as React from "react";
 import styled from "styled-components";
 
+const RowElem = styled.div`
+    display: flex;
+    justify-content: space-between;
+`;
+
 export function Row({
     children,
     className,
@@ -8,10 +13,5 @@ export function Row({
     children: any;
     className?: string;
 }): JSX.Element {
-    const Row = styled.div`
-        display: flex;
-        justify-content: space-between;
-    `;
-
-    return <Row className={className}>{children}</Row>;
+    return <RowElem className={className}>{children}</RowElem>;
 }

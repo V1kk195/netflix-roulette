@@ -1,8 +1,8 @@
 import * as React from "react";
-import styled from "styled-components";
 import { MovieItem } from "../movieItem";
 import { Grid } from "../../shared/grid";
 import { ModalName, Movie } from "../../types/global.types";
+import { MoviesCount } from "./MoviesList.styles";
 
 type Props = {
     movies: Movie[];
@@ -15,12 +15,6 @@ export function MoviesList({
     modalOpenHandler,
     setModalName,
 }: Props): JSX.Element {
-    const MoviesCount = styled.p`
-        padding: 25px 0;
-        font-weight: 400;
-        font-size: 20px;
-    `;
-
     return (
         <div>
             <MoviesCount>33 movies found</MoviesCount>

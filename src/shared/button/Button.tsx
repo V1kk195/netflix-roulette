@@ -1,6 +1,6 @@
 import * as React from "react";
 import { ReactNode } from "react";
-import styled from "styled-components";
+import { ButtonElem } from "./Button.styles";
 
 type ButtonProps = {
     children: ReactNode;
@@ -17,17 +17,14 @@ export function Button({
     onClick,
     form,
 }: ButtonProps): JSX.Element {
-    const Button = styled.button`
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-        font-size: 20px;
-        text-transform: uppercase;
-    `;
-
     return (
-        <Button type={type} className={className} onClick={onClick} form={form}>
+        <ButtonElem
+            type={type}
+            className={className}
+            onClick={onClick}
+            form={form}
+        >
             {children}
-        </Button>
+        </ButtonElem>
     );
 }

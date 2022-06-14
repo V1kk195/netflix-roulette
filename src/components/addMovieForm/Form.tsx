@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Select } from "../../shared/select";
 import { Input } from "../../shared/input";
-import { Field, FormElem } from "./FormStyles";
+import { Field, FormElem } from "./Form.styles";
 import { FormField } from "../../types/global.types";
 
 type Props = {

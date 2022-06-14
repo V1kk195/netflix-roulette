@@ -7,7 +7,7 @@ import {
     HeaderContainer,
     MainBlock,
     TopRow,
-} from "./HeaderStyles";
+} from "./Header.styles";
 import { ModalName } from "../../types/global.types";
 
 type Props = {
