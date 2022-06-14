@@ -1,53 +1,47 @@
 import * as React from "react";
-import styled from "styled-components";
 import { useState } from "react";
 
 import { Row } from "../../shared/allignment";
 import contextMenuButton from "../../../public/assets/icons/context_menu_button.svg";
-import { Button } from "../../shared/button";
+import { MenuButton, Year, Image, Menu, ButtonClose } from "./Movieitem.styles";
+import CloseIcon from "../../../public/assets/icons/close-button.svg";
+import { ModalName } from "../../types/global.types";
 
 type Props = {
     title: string;
     image?: string;
     year: string;
     genres: string[];
+    modalOpenHandler?: () => void;
+    setModalName?: (name: ModalName) => void;
 };
 
-export function MovieItem({ title, genres, image, year }: Props): JSX.Element {
+export function MovieItem({
+    title,
+    genres,
+    image,
+    year,
+    modalOpenHandler,
+    setModalName,
+}: Props): JSX.Element {
     const [isMenuButtonVisible, setIsMenuButtonVisible] = useState(false);
+    const [isMenuVisible, setIsMenuVisible] = useState(false);
 
-    const Image = styled.img`
-        margin-bottom: 20px;
-    `;
-
-    const Year = styled.div`
-        padding: 4px 8px;
-        border: 1px solid #979797;
-        border-radius: 4px;
-        font-size: 14px;
-        font-weight: 500;
-        opacity: 0.7;
-        height: 26px;
-    `;
-
-    const MenuButton = styled(Button)`
-        display: ${isMenuButtonVisible ? "block" : "none"};
-        padding: 0;
-        background-color: transparent;
-        width: 36px;
-        height: 36px;
-        position: absolute;
-        top: 0;
-        right: 0;
-        margin: 5px;
-    `;
-
-    const handleItemHover = () => {
+    const handleItemHover = (): void => {
         setIsMenuButtonVisible(true);
     };
 
-    const handleItemLeave = () => {
+    const handleItemLeave = (): void => {
         setIsMenuButtonVisible(false);
+    };
+
+    const handleMenuButtonClick = (): void => {
+        setIsMenuVisible((prevState) => !prevState);
+    };
+
+    const handleMenuItemClick = (title: ModalName): void => {
+        setModalName(title);
+        modalOpenHandler();
     };
 
     return (
@@ -57,9 +51,22 @@ export function MovieItem({ title, genres, image, year }: Props): JSX.Element {
             style={{ position: "relative" }}
         >
             <Image src={image} />
-            <MenuButton type="button">
+            <MenuButton
+                type="button"
+                isVisible={isMenuButtonVisible}
+                onClick={handleMenuButtonClick}
+            >
                 <img alt="menu button" src={contextMenuButton} />
             </MenuButton>
+            <Menu isVisible={isMenuVisible}>
+                <ButtonClose onClick={handleMenuButtonClick}>
+                    <img src={CloseIcon} alt="close icon" />
+                </ButtonClose>
+                <li onClick={() => handleMenuItemClick("editMovie")}>Edit</li>
+                <li onClick={() => handleMenuItemClick("deleteMovie")}>
+                    Delete
+                </li>
+            </Menu>
 
             <Row>
                 <div>

@@ -29,7 +29,10 @@ export function App(): JSX.Element {
                 </ErrorBoundary>
 
                 <ErrorBoundary>
-                    <Main />
+                    <Main
+                        modalOpenHandler={handleModalOpenClose}
+                        setModalName={setModalName}
+                    />
                 </ErrorBoundary>
 
                 <ErrorBoundary>

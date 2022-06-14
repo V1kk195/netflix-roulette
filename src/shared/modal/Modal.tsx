@@ -9,12 +9,11 @@ import {
     Overlay,
 } from "./ModalStyles";
 import closeIcon from "../../../public/assets/icons/close-button.svg";
-import { forms, FormType } from "../../data/forms";
+import { ButtonType, forms, FormType } from "../../data/forms";
 import { Form } from "../../components/addMovieForm";
 
 type Props = {
     name: string;
-    buttons?: ReactNode;
     isVisible: boolean;
     modalCloseHandler: () => void;
     formId?: string;
@@ -24,7 +23,6 @@ export const Modal = ({
     name,
     isVisible,
     modalCloseHandler,
-    buttons,
     formId,
 }: Props): JSX.Element => {
     const [content, setContent] = useState<FormType>();
@@ -57,11 +55,23 @@ export const Modal = ({
                 </ButtonClose>
                 <h1>{content?.title}</h1>
 
-                {content?.data && <Form data={content.data} />}
+                {content?.data && typeof content.data !== "string" && (
+                    <Form data={content.data} />
+                )}
+
+                {content?.data && typeof content.data === "string" && (
+                    <p style={{ fontSize: "20px" }}>{content.data}</p>
+                )}
 
                 <ButtonsContainer>
-                    {buttons ? (
-                        buttons
+                    {content?.buttons ? (
+                        content.buttons.map(({ title, type }: ButtonType) => {
+                            return (
+                                <ButtonModal key={title} type={type}>
+                                    {title}
+                                </ButtonModal>
+                            );
+                        })
                     ) : (
                         <>
                             <ButtonModal type="button">Reset</ButtonModal>
