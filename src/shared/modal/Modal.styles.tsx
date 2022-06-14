@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import { Button } from "../button";
-import { Row } from "../allignment";
 
 export const ModalContainer = styled.div`
     position: absolute;
