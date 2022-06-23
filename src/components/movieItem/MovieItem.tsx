@@ -3,9 +3,9 @@ import { useState } from "react";
 
 import { Row } from "../../shared/allignment";
 import contextMenuButton from "../../../public/assets/icons/context_menu_button.svg";
-import { MenuButton, Year, Image, Menu, ButtonClose } from "./Movieitem.styles";
+import { ButtonClose, Image, Menu, MenuButton, Year } from "./Movieitem.styles";
 import CloseIcon from "../../../public/assets/icons/close-button.svg";
-import { ModalName } from "../../types/global.types";
+import { MODAL_TYPES, ModalName } from "../../types/global.types";
 
 type Props = {
     title: string;
@@ -24,8 +24,9 @@ export function MovieItem({
     modalOpenHandler,
     setModalName,
 }: Props): JSX.Element {
-    const [isMenuButtonVisible, setIsMenuButtonVisible] = useState(false);
-    const [isMenuVisible, setIsMenuVisible] = useState(false);
+    const [isMenuButtonVisible, setIsMenuButtonVisible] =
+        useState<boolean>(false);
+    const [isMenuVisible, setIsMenuVisible] = useState<boolean>(false);
 
     const handleItemHover = (): void => {
         setIsMenuButtonVisible(true);
@@ -62,8 +63,12 @@ export function MovieItem({
                 <ButtonClose onClick={handleMenuButtonClick}>
                     <img src={CloseIcon} alt="close icon" />
                 </ButtonClose>
-                <li onClick={() => handleMenuItemClick("editMovie")}>Edit</li>
-                <li onClick={() => handleMenuItemClick("deleteMovie")}>
+                <li onClick={() => handleMenuItemClick(MODAL_TYPES.editMovie)}>
+                    Edit
+                </li>
+                <li
+                    onClick={() => handleMenuItemClick(MODAL_TYPES.deleteMovie)}
+                >
                     Delete
                 </li>
             </Menu>

@@ -11,7 +11,7 @@ const options: IdName[] = [
     { id: "runtime", name: "runtime" },
 ];
 
-export function Sort() {
+export function Sort(): JSX.Element {
     return (
         <div>
             <Label>Sort by</Label>

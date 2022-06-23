@@ -8,7 +8,7 @@ import {
     MainBlock,
     TopRow,
 } from "./Header.styles";
-import { ModalName } from "../../types/global.types";
+import { MODAL_TYPES, ModalName } from "../../types/global.types";
 
 type Props = {
     modalOpenHandler?: () => void;
@@ -17,7 +17,7 @@ type Props = {
 
 export function Header({ setModalName, modalOpenHandler }: Props): JSX.Element {
     const handleAddMovieModal = (): void => {
-        setModalName("addMovie");
+        setModalName(MODAL_TYPES.addMovie);
         modalOpenHandler();
     };
 

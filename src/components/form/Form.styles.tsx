@@ -6,17 +6,17 @@ export const FormElem = styled.form`
     flex-wrap: wrap;
     justify-content: space-between;
     column-gap: 30px;
-`;
 
-export const Field = styled.div`
-    display: flex;
-    flex-direction: column;
+    > div {
+        display: flex;
+        flex-direction: column;
 
-    &:nth-of-type(odd) {
-        flex-basis: 60%;
-    }
+        &:nth-of-type(odd) {
+            flex-basis: 60%;
+        }
 
-    &:nth-of-type(even) {
-        flex-basis: 30%;
+        &:nth-of-type(even) {
+            flex-basis: 30%;
+        }
     }
 `;

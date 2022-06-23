@@ -13,13 +13,13 @@ export type IdName = {
 
 export type InputTypes = "text" | "url" | "number" | "date";
 
-export type ModalName = "addMovie" | "editMovie" | "deleteMovie";
+export enum MODAL_TYPES {
+    addMovie = "add movie",
+    editMovie = "edit movie",
+    deleteMovie = "delete movie",
+}
 
-export type FormField = {
-    id: string;
-    label: string;
-    type: "input" | "select" | "checkbox";
-    options?: IdName[];
-    inputType?: InputTypes;
-    placeholder?: string;
-};
+export type ModalName =
+    | MODAL_TYPES.addMovie
+    | MODAL_TYPES.editMovie
+    | MODAL_TYPES.deleteMovie;

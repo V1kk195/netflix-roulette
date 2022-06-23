@@ -9,7 +9,7 @@ type Props = {
 };
 
 export const Input = ({ type, placeholder }: Props): JSX.Element => {
-    const [value, setValue] = useState("");
+    const [value, setValue] = useState<string>("");
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
         setValue(e.target.value);

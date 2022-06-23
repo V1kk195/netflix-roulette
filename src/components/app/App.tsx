@@ -8,10 +8,13 @@ import { Main } from "../main";
 import { ErrorBoundary } from "../../shared/errorBoundary";
 import { Modal } from "../../shared/modal";
 import { AppContainer } from "./App.styles";
-import { ModalName } from "../../types/global.types";
+import { MODAL_TYPES, ModalName } from "../../types/global.types";
+import { AddMovieForm } from "../forms/addMovieForm";
+import { EditMovieForm } from "../forms/editMovieForm";
+import { DeleteMovieForm } from "../forms/deleteMovieForm";
 
 export function App(): JSX.Element {
-    const [isModalVisible, setIsModalVisible] = useState(false);
+    const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
     const [modalName, setModalName] = useState<ModalName>();
 
     const handleModalOpenClose = (): void => {
@@ -41,10 +44,18 @@ export function App(): JSX.Element {
 
                 <ErrorBoundary>
                     <Modal
-                        name={modalName}
+                        title={modalName}
                         isVisible={isModalVisible}
                         modalCloseHandler={handleModalOpenClose}
-                    />
+                    >
+                        {modalName === MODAL_TYPES.addMovie && <AddMovieForm />}
+                        {modalName === MODAL_TYPES.editMovie && (
+                            <EditMovieForm />
+                        )}
+                        {modalName === MODAL_TYPES.deleteMovie && (
+                            <DeleteMovieForm />
+                        )}
+                    </Modal>
                 </ErrorBoundary>
             </AppContainer>
         </ErrorBoundary>

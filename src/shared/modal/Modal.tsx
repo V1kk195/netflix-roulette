@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useEffect, useState } from "react";
+import { ReactNode } from "react";
 
 import {
     ButtonClose,
@@ -9,31 +9,22 @@ import {
     Overlay,
 } from "./Modal.styles";
 import closeIcon from "../../../public/assets/icons/close-button.svg";
-import { ButtonType, forms, FormType } from "../../data/forms";
-import { Form } from "../../components/addMovieForm";
 
 type Props = {
-    name: string;
+    title: string;
     isVisible: boolean;
     modalCloseHandler: () => void;
     formId?: string;
+    children: ReactNode;
 };
 
 export const Modal = ({
-    name,
+    title,
     isVisible,
     modalCloseHandler,
     formId,
+    children,
 }: Props): JSX.Element => {
-    const [content, setContent] = useState<FormType>();
-    const getContent = (name: string): FormType => {
-        return forms[name];
-    };
-
-    useEffect(() => {
-        setContent(getContent(name));
-    }, [name]);
-
     const handleClose = (e: any): void => {
         if (
             e.target.classList.contains("buttonClose") ||
@@ -44,44 +35,28 @@ export const Modal = ({
     };
 
     return (
-        <Overlay isVisible={isVisible} onClick={handleClose}>
-            <ModalContainer className="modal">
-                <ButtonClose
-                    className="buttonClose"
-                    type="button"
-                    onClick={modalCloseHandler}
-                >
-                    <img src={closeIcon} alt="close_button" />
-                </ButtonClose>
-                <h1>{content?.title.toUpperCase()}</h1>
+        isVisible && (
+            <Overlay isVisible={isVisible} onClick={handleClose}>
+                <ModalContainer className="modal">
+                    <ButtonClose
+                        className="buttonClose"
+                        type="button"
+                        onClick={modalCloseHandler}
+                    >
+                        <img src={closeIcon} alt="close_button" />
+                    </ButtonClose>
+                    <h1>{title.toUpperCase()}</h1>
 
-                {content?.data && typeof content.data !== "string" && (
-                    <Form data={content.data} />
-                )}
+                    {children}
 
-                {content?.data && typeof content.data === "string" && (
-                    <p style={{ fontSize: "20px" }}>{content.data}</p>
-                )}
-
-                <ButtonsContainer>
-                    {content?.buttons ? (
-                        content.buttons.map(({ title, type }: ButtonType) => {
-                            return (
-                                <ButtonModal key={title} type={type}>
-                                    {title}
-                                </ButtonModal>
-                            );
-                        })
-                    ) : (
-                        <>
-                            <ButtonModal type="button">Reset</ButtonModal>
-                            <ButtonModal type="submit" form={formId}>
-                                Submit
-                            </ButtonModal>
-                        </>
-                    )}
-                </ButtonsContainer>
-            </ModalContainer>
-        </Overlay>
+                    <ButtonsContainer>
+                        <ButtonModal type="button">Reset</ButtonModal>
+                        <ButtonModal type="submit" form={formId}>
+                            Submit
+                        </ButtonModal>
+                    </ButtonsContainer>
+                </ModalContainer>
+            </Overlay>
+        )
     );
 };
