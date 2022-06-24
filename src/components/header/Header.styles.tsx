@@ -11,8 +11,8 @@ export const HeaderContainer = styled.header`
 `;
 
 export const MainBlock = styled.div`
-    padding: 0 60px;
-    margin-top: 40px;
+    padding: 40px 60px;
+    height: 100%;
 `;
 
 export const ButtonAddMovie = styled(Button)`
@@ -25,4 +25,16 @@ export const ButtonAddMovie = styled(Button)`
 
 export const TopRow = styled(Row)`
     align-items: flex-start;
+`;
+
+export const ButtonSearch = styled(Button)`
+    width: 30px;
+    height: 30px;
+    background-color: transparent;
+    padding: 0;
+
+    > img {
+        width: 100%;
+        height: auto;
+    }
 `;

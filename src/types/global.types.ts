@@ -4,6 +4,8 @@ export type Movie = {
     year: string;
     image: string;
     genres: string[];
+    imDbRating?: string;
+    crew?: string;
 };
 
 export type IdName = {
