@@ -1,20 +1,20 @@
 import * as React from "react";
-import styled from "styled-components";
 import { MovieItem } from "../movieItem";
 import { Grid } from "../../shared/grid";
-import { Movie } from "../../types/global.types";
+import { ModalName, Movie } from "../../types/global.types";
+import { MoviesCount } from "./MoviesList.styles";
 
 type Props = {
     movies: Movie[];
+    modalOpenHandler?: () => void;
+    setModalName?: (name: ModalName) => void;
 };
 
-export function MoviesList({ movies }: Props): JSX.Element {
-    const MoviesCount = styled.p`
-        padding: 25px 0;
-        font-weight: 400;
-        font-size: 20px;
-    `;
-
+export function MoviesList({
+    movies,
+    modalOpenHandler,
+    setModalName,
+}: Props): JSX.Element {
     return (
         <div>
             <MoviesCount>33 movies found</MoviesCount>
@@ -26,6 +26,8 @@ export function MoviesList({ movies }: Props): JSX.Element {
                             title={movie.title}
                             year={movie.year}
                             image={movie.image}
+                            modalOpenHandler={modalOpenHandler}
+                            setModalName={setModalName}
                         />
                     </div>
                 ))}

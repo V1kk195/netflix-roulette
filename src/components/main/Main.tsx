@@ -1,8 +1,8 @@
 import * as React from "react";
-import styled from "styled-components";
 import { MoviesList } from "../moviesList";
 import { Filters } from "../filters";
-import { Movie } from "../../types/global.types";
+import { ModalName, Movie } from "../../types/global.types";
+import { MainElem } from "./Main.styles";
 
 const categories = ["comedy", "documentary", "horror", "crime"];
 
@@ -107,17 +107,20 @@ const movies: Movie[] = [
     },
 ];
 
-export function Main(): JSX.Element {
-    const Main = styled.div`
-        background-color: #232323;
-        margin-top: 10px;
-        padding: 0 60px 75px;
-    `;
+type Props = {
+    modalOpenHandler?: () => void;
+    setModalName?: (name: ModalName) => void;
+};
 
+export function Main({ setModalName, modalOpenHandler }: Props): JSX.Element {
     return (
-        <Main>
+        <MainElem>
             <Filters categories={categories} />
-            <MoviesList movies={movies} />
-        </Main>
+            <MoviesList
+                movies={movies}
+                modalOpenHandler={modalOpenHandler}
+                setModalName={setModalName}
+            />
+        </MainElem>
     );
 }

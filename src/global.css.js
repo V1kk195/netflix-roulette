@@ -6,6 +6,7 @@ export const GlobalStyle = createGlobalStyle`
     font-family: 'Montserrat', serif;
     color: #FFFFFF;
     font-size: 16px;
+    margin: 0;
   }
   
   body {
@@ -17,6 +18,8 @@ export const GlobalStyle = createGlobalStyle`
     color: #FFFFFF;
     font-size: 40px;
     font-weight: 300;
+    margin: 0;
+    margin-bottom: 36px;
   }
   
   h2 {
