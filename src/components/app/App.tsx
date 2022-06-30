@@ -8,11 +8,12 @@ import { Main } from "../main";
 import { ErrorBoundary } from "../../shared/errorBoundary";
 import { Modal } from "../../shared/modal";
 import { AppContainer } from "./App.styles";
-import { MODAL_TYPES, ModalName, Movie } from "../../types/global.types";
+import { MODAL_TYPES, ModalName } from "../../types/global.types";
 import { AddMovieForm } from "../forms/addMovieForm";
 import { EditMovieForm } from "../forms/editMovieForm";
 import { DeleteMovieForm } from "../forms/deleteMovieForm";
 import { AppContext } from "../../context";
+import { Movie } from "../../types/movies.types";
 
 export function App(): JSX.Element {
     const [isModalVisible, setIsModalVisible] = useState<boolean>(false);

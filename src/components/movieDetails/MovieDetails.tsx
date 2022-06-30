@@ -1,28 +1,28 @@
 import * as React from "react";
-import { Movie } from "../../types/global.types";
 import { Row } from "../../shared/allignment";
 import { Container, Poster } from "./MovieDetails.styles";
+import { Movie } from "../../types/movies.types";
 
 type Props = {
     movie: Movie;
 };
 
 export const MovieDetails = ({
-    movie: { image, title, genres, year, imDbRating, crew: description },
+    movie: { poster_path, title, genres, release_date, vote_average, overview },
 }: Props): JSX.Element => {
     return (
         <Container>
-            <Poster src={image} />
+            <Poster src={poster_path} />
             <div>
                 <Row>
                     <h1>{title}</h1>
-                    <span>{imDbRating}</span>
+                    <span>{vote_average}</span>
                     <p>{genres}</p>
                 </Row>
 
-                <span>{year}</span>
+                <span>{release_date}</span>
 
-                <p>{description}</p>
+                <p>{overview}</p>
             </div>
         </Container>
     );
