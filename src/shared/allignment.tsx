@@ -1,5 +1,6 @@
 import * as React from "react";
 import styled from "styled-components";
+import { CSSProperties } from "react";
 
 const RowElem = styled.div`
     display: flex;
@@ -9,9 +10,15 @@ const RowElem = styled.div`
 export function Row({
     children,
     className,
+    style,
 }: {
     children: any;
     className?: string;
+    style?: CSSProperties;
 }): JSX.Element {
-    return <RowElem className={className}>{children}</RowElem>;
+    return (
+        <RowElem style={style} className={className}>
+            {children}
+        </RowElem>
+    );
 }
