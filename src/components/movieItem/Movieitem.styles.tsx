@@ -1,7 +1,8 @@
 import styled from "styled-components";
 import { Button } from "../../shared/button";
+import { Image } from "../../shared/image";
 
-export const Image = styled.img`
+export const Poster = styled(Image)`
     margin-bottom: 20px;
 `;
 

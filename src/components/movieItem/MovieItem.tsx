@@ -3,7 +3,13 @@ import { useState } from "react";
 
 import { Row } from "../../shared/allignment";
 import contextMenuButton from "../../../public/assets/icons/context_menu_button.svg";
-import { ButtonClose, Image, Menu, MenuButton, Year } from "./Movieitem.styles";
+import {
+    ButtonClose,
+    Menu,
+    MenuButton,
+    Poster,
+    Year,
+} from "./Movieitem.styles";
 import CloseIcon from "../../../public/assets/icons/close-button.svg";
 import { MODAL_TYPES, ModalName } from "../../types/global.types";
 
@@ -51,7 +57,7 @@ export function MovieItem({
             onMouseLeave={handleItemLeave}
             style={{ position: "relative" }}
         >
-            <Image src={image} />
+            <Poster imageUrl={image} alt={`${title} poster`} />
             <MenuButton
                 type="button"
                 isVisible={isMenuButtonVisible}

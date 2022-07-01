@@ -12,7 +12,7 @@ export const MovieDetails = ({
 }: Props): JSX.Element => {
     return (
         <Container>
-            <Poster src={poster_path} />
+            <Poster imageUrl={poster_path} alt={`${title} poster`} />
             <div>
                 <Row>
                     <h1>{title}</h1>
