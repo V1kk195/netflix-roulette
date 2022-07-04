@@ -6,7 +6,11 @@ import { MoviesCount } from "./MoviesList.styles";
 import { useContext, useEffect } from "react";
 import { AppContext } from "../../context";
 import { useAppDispatch, useAppSelector } from "../../state";
-import { fetchAllMovies, selectMovies } from "../../state/movies/moviesSlice";
+import {
+    fetchAllMovies,
+    selectMovies,
+    selectMoviesTotal,
+} from "../../state/movies/moviesSlice";
 import { Movie } from "../../types/movies.types";
 
 type Props = {
@@ -21,6 +25,7 @@ export function MoviesList({
     const appContext = useContext(AppContext);
     const dispatch = useAppDispatch();
     const movies = useAppSelector(selectMovies);
+    const moviesTotal = useAppSelector(selectMoviesTotal);
 
     const handleCardClick = (movie: Movie): void => {
         appContext.setMovieDetails(movie);
@@ -40,7 +45,7 @@ export function MoviesList({
 
     return (
         <div>
-            <MoviesCount>33 movies found</MoviesCount>
+            <MoviesCount>{moviesTotal} movies found</MoviesCount>
             <Grid>
                 {movies.map((movie) => (
                     <div

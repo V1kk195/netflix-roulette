@@ -1,21 +1,24 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../store";
 import { moviesApi } from "../../api";
-import { Movie } from "../../types/movies.types";
+import { Movie, MoviesResponse } from "../../types/movies.types";
 
 interface MoviesState {
     moviesList: Movie[];
+    moviesTotal: number;
 }
 
 const initialState: MoviesState = {
     moviesList: [],
+    moviesTotal: null,
 };
 
 export const fetchAllMovies = createAsyncThunk(
     "movies/fetchAllMovies",
-    async () => {
-        const response = await moviesApi.getAllMovies();
-        return response.data;
+    async (): Promise<MoviesResponse> => {
+        return await moviesApi.getAllMovies(
+            "sortBy=release_date&sortOrder=desc"
+        );
     }
 );
 
@@ -24,12 +27,17 @@ const moviesSlice = createSlice({
     initialState,
     reducers: {},
     extraReducers: ({ addCase }) => {
-        addCase(fetchAllMovies.fulfilled, (state, action) => {
-            state.moviesList = action.payload;
-        });
+        addCase(
+            fetchAllMovies.fulfilled,
+            (state, { payload }: PayloadAction<MoviesResponse>) => {
+                state.moviesList = payload.data;
+                state.moviesTotal = payload.totalAmount;
+            }
+        );
     },
 });
 
 export default moviesSlice.reducer;
 export const {} = moviesSlice.actions;
 export const selectMovies = (state: RootState) => state.movies.moviesList;
+export const selectMoviesTotal = (state: RootState) => state.movies.moviesTotal;

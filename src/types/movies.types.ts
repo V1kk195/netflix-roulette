@@ -13,9 +13,9 @@ export type Movie = {
     id: number;
 };
 
-export type MovieResponse = {
+export type MoviesResponse = {
     data: Movie[];
-    total: number;
+    totalAmount: number;
     offset: number;
     limit: number;
 };
