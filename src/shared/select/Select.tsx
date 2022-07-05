@@ -15,7 +15,7 @@ export const Select = ({ options, className, id }: Props): JSX.Element => {
     const dispatch = useAppDispatch();
     const [value, setValue] = useState(SORT_OPTIONS.releaseDate);
 
-    const fetchMovies = async (id: SORT_OPTIONS) => {
+    const fetchMovies = async (id: SORT_OPTIONS): Promise<void> => {
         try {
             await dispatch(fetchSortedMovies(id)).unwrap();
         } catch (error) {

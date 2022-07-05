@@ -9,7 +9,7 @@ export type Movie = {
     budget: number;
     revenue: number;
     runtime: number;
-    genres: string[];
+    genres: Genres[];
     id: number;
 };
 
@@ -19,3 +19,5 @@ export type MoviesResponse = {
     offset: number;
     limit: number;
 };
+
+export type Genres = "" | "Comedy" | "Documentary" | "Horror" | "Crime";

@@ -3,8 +3,9 @@ import { MoviesList } from "../moviesList";
 import { Filters } from "../filters";
 import { ModalName } from "../../types/global.types";
 import { MainElem } from "./Main.styles";
+import { Genres } from "../../types/movies.types";
 
-const categories = ["comedy", "documentary", "horror", "crime"];
+const categories: Genres[] = ["Comedy", "Documentary", "Horror", "Crime"];
 
 type Props = {
     modalOpenHandler?: () => void;
