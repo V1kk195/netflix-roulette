@@ -10,4 +10,5 @@ export const SelectElem = styled(Select)`
     background-color: transparent;
     text-transform: uppercase;
     border: none;
+    cursor: pointer;
 `;

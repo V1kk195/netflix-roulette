@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../store";
 import { moviesApi } from "../../api";
 import { Movie, MoviesResponse } from "../../types/movies.types";
+import { SORT_OPTIONS } from "../../constants";
 
 interface MoviesState {
     moviesList: Movie[];
@@ -17,7 +18,16 @@ export const fetchAllMovies = createAsyncThunk(
     "movies/fetchAllMovies",
     async (): Promise<MoviesResponse> => {
         return await moviesApi.getAllMovies(
-            "sortBy=release_date&sortOrder=desc"
+            "sortBy=release_date&sortOrder=desc&limit30"
+        );
+    }
+);
+
+export const fetchSortedMovies = createAsyncThunk(
+    "movies/fetchSortedMovies",
+    async (id: SORT_OPTIONS): Promise<any> => {
+        return await moviesApi.getAllMovies(
+            `sortBy=${id}&sortOrder=desc&limit=30`
         );
     }
 );
@@ -29,6 +39,13 @@ const moviesSlice = createSlice({
     extraReducers: ({ addCase }) => {
         addCase(
             fetchAllMovies.fulfilled,
+            (state, { payload }: PayloadAction<MoviesResponse>) => {
+                state.moviesList = payload.data;
+                state.moviesTotal = payload.totalAmount;
+            }
+        );
+        addCase(
+            fetchSortedMovies.fulfilled,
             (state, { payload }: PayloadAction<MoviesResponse>) => {
                 state.moviesList = payload.data;
                 state.moviesTotal = payload.totalAmount;

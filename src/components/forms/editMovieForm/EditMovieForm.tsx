@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Select } from "../../../shared/select";
 import { Form } from "../../form";
-import { genres } from "../../../constants";
+import { GENRES } from "../../../constants";
 
 export const EditMovieForm = (): JSX.Element => {
     return (
@@ -16,7 +16,7 @@ export const EditMovieForm = (): JSX.Element => {
             </div>
             <div>
                 <label htmlFor="genre">genre</label>
-                <Select options={genres} id="genre" />
+                <Select options={GENRES} id="genre" />
             </div>
             <div>
                 <label htmlFor="releaseDate">release date</label>
