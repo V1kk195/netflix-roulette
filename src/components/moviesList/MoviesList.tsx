@@ -2,24 +2,23 @@ import * as React from "react";
 import { MovieItem } from "../movieItem";
 import { Grid } from "../../shared/grid";
 import { MoviesCount } from "./MoviesList.styles";
-import { useContext, useEffect } from "react";
-import { AppContext } from "../../context";
+import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../state";
 import {
     fetchAllMovies,
+    openMovieDetails,
     selectMovies,
     selectMoviesTotal,
 } from "../../state/movies/moviesSlice";
 import { Movie } from "../../types/movies.types";
 
 export function MoviesList(): JSX.Element {
-    const appContext = useContext(AppContext);
     const dispatch = useAppDispatch();
     const movies = useAppSelector(selectMovies);
     const moviesTotal = useAppSelector(selectMoviesTotal);
 
     const handleCardClick = (movie: Movie): void => {
-        appContext.setMovieDetails(movie);
+        dispatch(openMovieDetails(movie));
     };
 
     const fetchMovies = async () => {

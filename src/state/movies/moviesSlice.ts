@@ -9,6 +9,7 @@ interface MoviesState {
     moviesTotal: number;
     isSortedBy: SORT_OPTIONS | null;
     isFilteredBy: Genres | null;
+    movieDetails: Movie;
 }
 
 const initialState: MoviesState = {
@@ -16,6 +17,7 @@ const initialState: MoviesState = {
     moviesTotal: null,
     isSortedBy: SORT_OPTIONS.releaseDate,
     isFilteredBy: null,
+    movieDetails: null,
 };
 
 export const fetchAllMovies = createAsyncThunk(
@@ -49,7 +51,14 @@ export const fetchFilteredMovies = createAsyncThunk(
 const moviesSlice = createSlice({
     name: "movies",
     initialState,
-    reducers: {},
+    reducers: {
+        openMovieDetails: (state, { payload }: PayloadAction<Movie>) => {
+            state.movieDetails = payload;
+        },
+        closeMovieDetails: (state) => {
+            state.movieDetails = null;
+        },
+    },
     extraReducers: ({ addCase }) => {
         addCase(
             fetchAllMovies.fulfilled,
@@ -76,6 +85,8 @@ const moviesSlice = createSlice({
 });
 
 export default moviesSlice.reducer;
-export const {} = moviesSlice.actions;
+export const { openMovieDetails, closeMovieDetails } = moviesSlice.actions;
 export const selectMovies = (state: RootState) => state.movies.moviesList;
 export const selectMoviesTotal = (state: RootState) => state.movies.moviesTotal;
+export const selectMovieDetails = (state: RootState) =>
+    state.movies.movieDetails;
