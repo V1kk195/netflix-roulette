@@ -10,8 +10,3 @@ export enum MODAL_TYPES {
     editMovie = "edit movie",
     deleteMovie = "delete movie",
 }
-
-export type ModalName =
-    | MODAL_TYPES.addMovie
-    | MODAL_TYPES.editMovie
-    | MODAL_TYPES.deleteMovie;

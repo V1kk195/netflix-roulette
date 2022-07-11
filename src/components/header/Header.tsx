@@ -10,24 +10,21 @@ import {
     MainBlock,
     TopRow,
 } from "./Header.styles";
-import { MODAL_TYPES, ModalName } from "../../types/global.types";
+import { MODAL_TYPES } from "../../types/global.types";
 import { AppContext } from "../../context";
 import { MovieDetails } from "../movieDetails";
 import SearchIcon from "../../../public/assets/icons/search-icon.svg";
 import { Row } from "../../shared/allignment";
+import { useAppDispatch } from "../../state";
+import { openModal } from "../../state/modal/modalSlice";
 
-type Props = {
-    modalOpenHandler?: () => void;
-    setModalName?: (name: ModalName) => void;
-};
-
-export function Header({ setModalName, modalOpenHandler }: Props): JSX.Element {
+export function Header(): JSX.Element {
     const context = useContext(AppContext);
     const movieDetails = context.movieDetails;
+    const dispatch = useAppDispatch();
 
     const handleAddMovieModal = (): void => {
-        setModalName(MODAL_TYPES.addMovie);
-        modalOpenHandler();
+        dispatch(openModal(MODAL_TYPES.addMovie));
     };
 
     const handleSearchClick = (): void => {
@@ -48,7 +45,7 @@ export function Header({ setModalName, modalOpenHandler }: Props): JSX.Element {
                     <Row style={{ alignItems: "center" }}>
                         <img src={LogoImg} alt="netflix roulette logo" />
                         <ButtonSearch type="button" onClick={handleSearchClick}>
-                            <img src={SearchIcon} />
+                            <img src={SearchIcon} alt={"searchIcon"} />
                         </ButtonSearch>
                     </Row>
                     <MainBlock>

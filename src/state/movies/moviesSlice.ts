@@ -7,11 +7,15 @@ import { SORT_OPTIONS } from "../../constants";
 interface MoviesState {
     moviesList: Movie[];
     moviesTotal: number;
+    isSortedBy: SORT_OPTIONS | null;
+    isFilteredBy: Genres | null;
 }
 
 const initialState: MoviesState = {
     moviesList: [],
     moviesTotal: null,
+    isSortedBy: SORT_OPTIONS.releaseDate,
+    isFilteredBy: null,
 };
 
 export const fetchAllMovies = createAsyncThunk(
@@ -25,16 +29,17 @@ export const fetchAllMovies = createAsyncThunk(
 
 export const fetchSortedMovies = createAsyncThunk(
     "movies/fetchSortedMovies",
-    async (id: SORT_OPTIONS): Promise<any> => {
-        return await moviesApi.getAllMovies(
+    async (id: SORT_OPTIONS, thunkAPI): Promise<any> => {
+        const res = await moviesApi.getAllMovies(
             `sortBy=${id}&sortOrder=desc&limit=30`
         );
+        return thunkAPI.fulfillWithValue(res);
     }
 );
 
 export const fetchFilteredMovies = createAsyncThunk(
     "movies/fetchFilteredMovies",
-    async (genre: Genres): Promise<any> => {
+    async (genre: Genres, thunkAPI): Promise<any> => {
         return await moviesApi.getAllMovies(
             `filter=${genre}&sortOrder=desc&limit=30`
         );

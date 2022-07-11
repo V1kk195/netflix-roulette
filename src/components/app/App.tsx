@@ -8,21 +8,18 @@ import { Main } from "../main";
 import { ErrorBoundary } from "../../shared/errorBoundary";
 import { Modal } from "../../shared/modal";
 import { AppContainer } from "./App.styles";
-import { MODAL_TYPES, ModalName } from "../../types/global.types";
+import { MODAL_TYPES } from "../../types/global.types";
 import { AddMovieForm } from "../forms/addMovieForm";
 import { EditMovieForm } from "../forms/editMovieForm";
 import { DeleteMovieForm } from "../forms/deleteMovieForm";
 import { AppContext } from "../../context";
 import { Movie } from "../../types/movies.types";
+import { useSelector } from "react-redux";
+import { selectModalName } from "../../state/modal/modalSlice";
 
 export function App(): JSX.Element {
-    const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
-    const [modalName, setModalName] = useState<ModalName>();
     const [movieDetails, setMovieDetails] = useState<Movie | null>(null);
-
-    const handleModalOpenClose = (): void => {
-        setIsModalVisible((prevState) => !prevState);
-    };
+    const modalName = useSelector(selectModalName);
 
     return (
         <ErrorBoundary>
@@ -34,17 +31,11 @@ export function App(): JSX.Element {
             >
                 <AppContainer className="app">
                     <ErrorBoundary>
-                        <Header
-                            modalOpenHandler={handleModalOpenClose}
-                            setModalName={setModalName}
-                        />
+                        <Header />
                     </ErrorBoundary>
 
                     <ErrorBoundary>
-                        <Main
-                            modalOpenHandler={handleModalOpenClose}
-                            setModalName={setModalName}
-                        />
+                        <Main />
                     </ErrorBoundary>
 
                     <ErrorBoundary>
@@ -52,11 +43,7 @@ export function App(): JSX.Element {
                     </ErrorBoundary>
 
                     <ErrorBoundary>
-                        <Modal
-                            title={modalName}
-                            isVisible={isModalVisible}
-                            modalCloseHandler={handleModalOpenClose}
-                        >
+                        <Modal title={modalName}>
                             {modalName === MODAL_TYPES.addMovie && (
                                 <AddMovieForm />
                             )}

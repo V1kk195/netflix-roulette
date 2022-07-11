@@ -11,25 +11,20 @@ import {
     Year,
 } from "./Movieitem.styles";
 import CloseIcon from "../../../public/assets/icons/close-button.svg";
-import { MODAL_TYPES, ModalName } from "../../types/global.types";
+import { MODAL_TYPES } from "../../types/global.types";
+import { useAppDispatch } from "../../state";
+import { openModal } from "../../state/modal/modalSlice";
 
 type Props = {
     title: string;
     image?: string;
     year: string;
     genres: string[];
-    modalOpenHandler?: () => void;
-    setModalName?: (name: ModalName) => void;
 };
 
-export function MovieItem({
-    title,
-    genres,
-    image,
-    year,
-    modalOpenHandler,
-    setModalName,
-}: Props): JSX.Element {
+export function MovieItem({ title, genres, image, year }: Props): JSX.Element {
+    const dispatch = useAppDispatch();
+
     const [isMenuButtonVisible, setIsMenuButtonVisible] =
         useState<boolean>(false);
     const [isMenuVisible, setIsMenuVisible] = useState<boolean>(false);
@@ -46,9 +41,8 @@ export function MovieItem({
         setIsMenuVisible((prevState) => !prevState);
     };
 
-    const handleMenuItemClick = (title: ModalName): void => {
-        setModalName(title);
-        modalOpenHandler();
+    const handleMenuItemClick = (title: MODAL_TYPES): void => {
+        dispatch(openModal(title));
     };
 
     return (
