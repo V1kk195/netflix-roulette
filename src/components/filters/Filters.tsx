@@ -1,15 +1,13 @@
 import * as React from "react";
+
 import { Sort } from "../sort";
 import { FiltersRow, List } from "./Filters.styles";
 import { Genres } from "../../types/movies.types";
 import { useAppDispatch } from "../../state";
 import { fetchFilteredMovies } from "../../state/movies/moviesSlice";
+import { categories } from "../../constants";
 
-type Props = {
-    categories: Genres[];
-};
-
-export function Filters({ categories }: Props): JSX.Element {
+export function Filters(): JSX.Element {
     const dispatch = useAppDispatch();
 
     const fetchMovies = async (genre: Genres): Promise<void> => {

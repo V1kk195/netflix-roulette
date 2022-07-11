@@ -1,3 +1,5 @@
+import { Genres } from "../types/movies.types";
+
 export const GENRES = [
     { id: "default", name: "Select Genre" },
     { id: "crime", name: "crime" },
@@ -13,3 +15,10 @@ export enum SORT_OPTIONS {
     rating = "vote_average",
     runtime = "runtime",
 }
+
+export const categories: Genres[] = [
+    "Comedy",
+    "Documentary",
+    "Horror",
+    "Crime",
+];
