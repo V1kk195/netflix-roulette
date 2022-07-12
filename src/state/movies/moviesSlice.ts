@@ -45,49 +45,6 @@ const moviesSlice = createSlice({
         fetchAllMoviesReducer(builder);
         fetchFilteredMoviesReducer(builder);
         fetchSortedMoviesReducer(builder);
-        // addCase(fetchAllMovies.pending, (state, action) => {
-        //     if (state.loading === "idle") {
-        //         state.loading = "pending";
-        //         state.currentRequestId = action.meta.requestId;
-        //     }
-        // });
-        // addCase(fetchAllMovies.fulfilled, (state, action) => {
-        //     const { requestId } = action.meta;
-        //     if (
-        //         state.loading === "pending" &&
-        //         state.currentRequestId === requestId
-        //     ) {
-        //         state.loading = "idle";
-        //         state.moviesList = action.payload.data;
-        //         state.moviesTotal = action.payload.totalAmount;
-        //         state.currentRequestId = undefined;
-        //     }
-        // });
-        // addCase(fetchAllMovies.rejected, (state, action) => {
-        //     const { requestId } = action.meta;
-        //     if (
-        //         state.loading === "pending" &&
-        //         state.currentRequestId === requestId
-        //     ) {
-        //         state.loading = "idle";
-        //         state.error = action.error;
-        //         state.currentRequestId = undefined;
-        //     }
-        // });
-        // builder.addCase(
-        //     fetchSortedMovies.fulfilled,
-        //     (state, { payload }: PayloadAction<MoviesResponse>) => {
-        //         state.moviesList = payload.data;
-        //         state.moviesTotal = payload.totalAmount;
-        //     }
-        // );
-        // builder.addCase(
-        //     fetchFilteredMovies.fulfilled,
-        //     (state, { payload }: PayloadAction<MoviesResponse>) => {
-        //         state.moviesList = payload.data;
-        //         state.moviesTotal = payload.totalAmount;
-        //     }
-        // );
     },
 });
 
