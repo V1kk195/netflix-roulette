@@ -4,7 +4,7 @@ import { Sort } from "../sort";
 import { FiltersRow, List } from "./Filters.styles";
 import { Genres } from "../../types/movies.types";
 import { useAppDispatch } from "../../state";
-import { fetchFilteredMovies } from "../../state/movies/moviesSlice";
+import { fetchFilteredMovies } from "../../state/movies";
 import { categories } from "../../constants";
 
 export function Filters(): JSX.Element {

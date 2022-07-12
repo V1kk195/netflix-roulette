@@ -1,15 +1,22 @@
-import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction, SerializedError } from "@reduxjs/toolkit";
 import { RootState } from "../store";
-import { moviesApi } from "../../api";
-import { Genres, Movie, MoviesResponse } from "../../types/movies.types";
+import { Genres, Movie } from "../../types/movies.types";
 import { SORT_OPTIONS } from "../../constants";
+import {
+    fetchAllMoviesReducer,
+    fetchFilteredMoviesReducer,
+    fetchSortedMoviesReducer,
+} from "./moviesReducers";
 
-interface MoviesState {
+export interface MoviesState {
     moviesList: Movie[];
     moviesTotal: number;
     isSortedBy: SORT_OPTIONS | null;
     isFilteredBy: Genres | null;
     movieDetails: Movie;
+    loading: string;
+    currentRequestId: string;
+    error: null | SerializedError;
 }
 
 const initialState: MoviesState = {
@@ -18,35 +25,10 @@ const initialState: MoviesState = {
     isSortedBy: SORT_OPTIONS.releaseDate,
     isFilteredBy: null,
     movieDetails: null,
+    loading: "idle",
+    currentRequestId: undefined,
+    error: null,
 };
-
-export const fetchAllMovies = createAsyncThunk(
-    "movies/fetchAllMovies",
-    async (): Promise<MoviesResponse> => {
-        return await moviesApi.getAllMovies(
-            "sortBy=release_date&sortOrder=desc&limit30"
-        );
-    }
-);
-
-export const fetchSortedMovies = createAsyncThunk(
-    "movies/fetchSortedMovies",
-    async (id: SORT_OPTIONS, thunkAPI): Promise<any> => {
-        const res = await moviesApi.getAllMovies(
-            `sortBy=${id}&sortOrder=desc&limit=30`
-        );
-        return thunkAPI.fulfillWithValue(res);
-    }
-);
-
-export const fetchFilteredMovies = createAsyncThunk(
-    "movies/fetchFilteredMovies",
-    async (genre: Genres, thunkAPI): Promise<any> => {
-        return await moviesApi.getAllMovies(
-            `filter=${genre}&sortOrder=desc&limit=30`
-        );
-    }
-);
 
 const moviesSlice = createSlice({
     name: "movies",
@@ -59,28 +41,53 @@ const moviesSlice = createSlice({
             state.movieDetails = null;
         },
     },
-    extraReducers: ({ addCase }) => {
-        addCase(
-            fetchAllMovies.fulfilled,
-            (state, { payload }: PayloadAction<MoviesResponse>) => {
-                state.moviesList = payload.data;
-                state.moviesTotal = payload.totalAmount;
-            }
-        );
-        addCase(
-            fetchSortedMovies.fulfilled,
-            (state, { payload }: PayloadAction<MoviesResponse>) => {
-                state.moviesList = payload.data;
-                state.moviesTotal = payload.totalAmount;
-            }
-        );
-        addCase(
-            fetchFilteredMovies.fulfilled,
-            (state, { payload }: PayloadAction<MoviesResponse>) => {
-                state.moviesList = payload.data;
-                state.moviesTotal = payload.totalAmount;
-            }
-        );
+    extraReducers: (builder) => {
+        fetchAllMoviesReducer(builder);
+        fetchFilteredMoviesReducer(builder);
+        fetchSortedMoviesReducer(builder);
+        // addCase(fetchAllMovies.pending, (state, action) => {
+        //     if (state.loading === "idle") {
+        //         state.loading = "pending";
+        //         state.currentRequestId = action.meta.requestId;
+        //     }
+        // });
+        // addCase(fetchAllMovies.fulfilled, (state, action) => {
+        //     const { requestId } = action.meta;
+        //     if (
+        //         state.loading === "pending" &&
+        //         state.currentRequestId === requestId
+        //     ) {
+        //         state.loading = "idle";
+        //         state.moviesList = action.payload.data;
+        //         state.moviesTotal = action.payload.totalAmount;
+        //         state.currentRequestId = undefined;
+        //     }
+        // });
+        // addCase(fetchAllMovies.rejected, (state, action) => {
+        //     const { requestId } = action.meta;
+        //     if (
+        //         state.loading === "pending" &&
+        //         state.currentRequestId === requestId
+        //     ) {
+        //         state.loading = "idle";
+        //         state.error = action.error;
+        //         state.currentRequestId = undefined;
+        //     }
+        // });
+        // builder.addCase(
+        //     fetchSortedMovies.fulfilled,
+        //     (state, { payload }: PayloadAction<MoviesResponse>) => {
+        //         state.moviesList = payload.data;
+        //         state.moviesTotal = payload.totalAmount;
+        //     }
+        // );
+        // builder.addCase(
+        //     fetchFilteredMovies.fulfilled,
+        //     (state, { payload }: PayloadAction<MoviesResponse>) => {
+        //         state.moviesList = payload.data;
+        //         state.moviesTotal = payload.totalAmount;
+        //     }
+        // );
     },
 });
 

@@ -2,7 +2,7 @@ import * as React from "react";
 import { IdName } from "../../types/global.types";
 import { SORT_OPTIONS } from "../../constants";
 import { useAppDispatch } from "../../state";
-import { fetchSortedMovies } from "../../state/movies/moviesSlice";
+import { fetchSortedMovies } from "../../state/movies";
 import { SyntheticEvent, useState } from "react";
 
 type Props = {

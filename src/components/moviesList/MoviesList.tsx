@@ -9,7 +9,7 @@ import {
     openMovieDetails,
     selectMovies,
     selectMoviesTotal,
-} from "../../state/movies/moviesSlice";
+} from "../../state/movies";
 import { Movie } from "../../types/movies.types";
 
 export function MoviesList(): JSX.Element {
