@@ -9,39 +9,36 @@ import {
     Overlay,
 } from "./Modal.styles";
 import closeIcon from "../../../public/assets/icons/close-button.svg";
+import { useAppDispatch } from "../../state";
+import { closeModal } from "../../state/modal/modalSlice";
+import { MODAL_TYPES } from "../../types/global.types";
 
 type Props = {
-    title: string;
-    isVisible: boolean;
-    modalCloseHandler: () => void;
+    title: MODAL_TYPES | null;
     formId?: string;
     children: ReactNode;
 };
 
-export const Modal = ({
-    title,
-    isVisible,
-    modalCloseHandler,
-    formId,
-    children,
-}: Props): JSX.Element => {
+export const Modal = ({ title, formId, children }: Props): JSX.Element => {
+    const dispatch = useAppDispatch();
+
     const handleClose = (e: any): void => {
         if (
             e.target.classList.contains("buttonClose") ||
             !e.target.closest(".modal")
         ) {
-            modalCloseHandler();
+            dispatch(closeModal());
         }
     };
 
     return (
-        isVisible && (
-            <Overlay isVisible={isVisible} onClick={handleClose}>
+        !!title && (
+            <Overlay isVisible={!!title} onClick={handleClose}>
                 <ModalContainer className="modal">
                     <ButtonClose
                         className="buttonClose"
                         type="button"
-                        onClick={modalCloseHandler}
+                        onClick={() => dispatch(closeModal())}
                     >
                         <img src={closeIcon} alt="close_button" />
                     </ButtonClose>

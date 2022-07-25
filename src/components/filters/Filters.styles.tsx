@@ -12,6 +12,7 @@ export const List = styled.ul`
     li {
         margin-right: 30px;
         text-transform: uppercase;
+        cursor: pointer;
     }
 `;
 

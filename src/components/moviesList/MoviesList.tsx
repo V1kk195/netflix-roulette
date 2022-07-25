@@ -1,31 +1,41 @@
 import * as React from "react";
 import { MovieItem } from "../movieItem";
 import { Grid } from "../../shared/grid";
-import { ModalName, Movie } from "../../types/global.types";
 import { MoviesCount } from "./MoviesList.styles";
-import { useContext } from "react";
-import { AppContext } from "../../context";
+import { useEffect } from "react";
+import { useAppDispatch, useAppSelector } from "../../state";
+import {
+    fetchAllMovies,
+    openMovieDetails,
+    selectMovies,
+    selectMoviesTotal,
+} from "../../state/movies";
+import { Movie } from "../../types/movies.types";
 
-type Props = {
-    movies: Movie[];
-    modalOpenHandler?: () => void;
-    setModalName?: (name: ModalName) => void;
-};
-
-export function MoviesList({
-    movies,
-    modalOpenHandler,
-    setModalName,
-}: Props): JSX.Element {
-    const appContext = useContext(AppContext);
+export function MoviesList(): JSX.Element {
+    const dispatch = useAppDispatch();
+    const movies = useAppSelector(selectMovies);
+    const moviesTotal = useAppSelector(selectMoviesTotal);
 
     const handleCardClick = (movie: Movie): void => {
-        appContext.setMovieDetails(movie);
+        dispatch(openMovieDetails(movie));
     };
+
+    const fetchMovies = async () => {
+        try {
+            await dispatch(fetchAllMovies()).unwrap();
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    useEffect(() => {
+        fetchMovies();
+    }, []);
 
     return (
         <div>
-            <MoviesCount>33 movies found</MoviesCount>
+            <MoviesCount>{moviesTotal} movies found</MoviesCount>
             <Grid>
                 {movies.map((movie) => (
                     <div
@@ -36,10 +46,8 @@ export function MoviesList({
                         <MovieItem
                             genres={movie.genres}
                             title={movie.title}
-                            year={movie.year}
-                            image={movie.image}
-                            modalOpenHandler={modalOpenHandler}
-                            setModalName={setModalName}
+                            year={movie.release_date}
+                            image={movie.poster_path}
                         />
                     </div>
                 ))}

@@ -3,27 +3,28 @@ import { useState } from "react";
 
 import { Row } from "../../shared/allignment";
 import contextMenuButton from "../../../public/assets/icons/context_menu_button.svg";
-import { ButtonClose, Image, Menu, MenuButton, Year } from "./Movieitem.styles";
+import {
+    ButtonClose,
+    Menu,
+    MenuButton,
+    Poster,
+    Year,
+} from "./Movieitem.styles";
 import CloseIcon from "../../../public/assets/icons/close-button.svg";
-import { MODAL_TYPES, ModalName } from "../../types/global.types";
+import { MODAL_TYPES } from "../../types/global.types";
+import { useAppDispatch } from "../../state";
+import { openModal } from "../../state/modal/modalSlice";
 
 type Props = {
     title: string;
     image?: string;
     year: string;
     genres: string[];
-    modalOpenHandler?: () => void;
-    setModalName?: (name: ModalName) => void;
 };
 
-export function MovieItem({
-    title,
-    genres,
-    image,
-    year,
-    modalOpenHandler,
-    setModalName,
-}: Props): JSX.Element {
+export function MovieItem({ title, genres, image, year }: Props): JSX.Element {
+    const dispatch = useAppDispatch();
+
     const [isMenuButtonVisible, setIsMenuButtonVisible] =
         useState<boolean>(false);
     const [isMenuVisible, setIsMenuVisible] = useState<boolean>(false);
@@ -40,9 +41,8 @@ export function MovieItem({
         setIsMenuVisible((prevState) => !prevState);
     };
 
-    const handleMenuItemClick = (title: ModalName): void => {
-        setModalName(title);
-        modalOpenHandler();
+    const handleMenuItemClick = (title: MODAL_TYPES): void => {
+        dispatch(openModal(title));
     };
 
     return (
@@ -51,7 +51,7 @@ export function MovieItem({
             onMouseLeave={handleItemLeave}
             style={{ position: "relative" }}
         >
-            <Image src={image} />
+            <Poster imageUrl={image} alt={`${title} poster`} />
             <MenuButton
                 type="button"
                 isVisible={isMenuButtonVisible}
