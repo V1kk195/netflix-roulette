@@ -4,8 +4,14 @@ import { FormElem } from "./Form.styles";
 
 type Props = {
     children: ReactNode;
+    id?: string;
+    onSubmit?: (e?: React.FormEvent<HTMLFormElement>) => void;
 };
 
-export const Form = ({ children }: Props): JSX.Element => {
-    return <FormElem>{children}</FormElem>;
+export const Form = ({ children, id, ...rest }: Props): JSX.Element => {
+    return (
+        <FormElem id={id} {...rest}>
+            {children}
+        </FormElem>
+    );
 };

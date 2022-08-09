@@ -19,7 +19,7 @@ type Props = {
     children: ReactNode;
 };
 
-export const Modal = ({ title, formId, children }: Props): JSX.Element => {
+export const Modal = ({ title, children }: Props): JSX.Element => {
     const dispatch = useAppDispatch();
 
     const handleClose = (e: any): void => {
@@ -48,7 +48,7 @@ export const Modal = ({ title, formId, children }: Props): JSX.Element => {
 
                     <ButtonsContainer>
                         <ButtonModal type="button">Reset</ButtonModal>
-                        <ButtonModal type="submit" form={formId}>
+                        <ButtonModal type="submit" form={title}>
                             Submit
                         </ButtonModal>
                     </ButtonsContainer>
