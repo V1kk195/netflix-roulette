@@ -1,78 +1,39 @@
 import * as React from "react";
-import { isInteger, isNaN, useFormik } from "formik";
+import { useFormik } from "formik";
 
 import { Select } from "../../../shared/select";
 import { Form } from "../../form";
 import { GENRES } from "../../../constants";
 import { MODAL_TYPES } from "../../../types/global.types";
-import { isValidUrl } from "../../../utils";
 import {
     Column,
     ColumnLarge,
     ErrorMessage,
     FieldContainer,
 } from "../FormCommon.styles";
-
-interface AddMovieFormValues {
-    title: string;
-    movieUrl: string;
-    genre: string;
-    releaseDate: string;
-    rating: string;
-    runtime: string;
-    overview: string;
-}
-
-const validate = (values: AddMovieFormValues): Partial<AddMovieFormValues> => {
-    const errors: Partial<AddMovieFormValues> = {};
-
-    if (!values.title) {
-        errors.title = "Required";
-    }
-
-    if (!values.movieUrl) {
-        errors.movieUrl = "Required";
-    } else if (!isValidUrl(values.movieUrl)) {
-        errors.movieUrl = "Must be a valid URL";
-    }
-
-    if (!values.overview) {
-        errors.overview = "Required";
-    }
-
-    if (!values.runtime) {
-        errors.runtime = "Required";
-    } else if (!isInteger(values.runtime)) {
-        errors.runtime = "Must be an integer";
-    }
-
-    if (!values.genre) {
-        errors.genre = "Required";
-    }
-
-    if (isNaN(values.rating)) {
-        errors.rating = "Must be an number";
-    }
-
-    return errors;
-};
-
-const initialValues: AddMovieFormValues = {
-    title: "",
-    movieUrl: "",
-    genre: "",
-    releaseDate: "",
-    rating: "",
-    runtime: "",
-    overview: "",
-};
+import { AddMovieFormValues, initialValues, validate } from "./validation";
+import { moviesApi } from "../../../api";
+import { getFormModifiedValues } from "../../../utils";
+import { useAppDispatch } from "../../../state";
+import { closeModal } from "../../../state/modal/modalSlice";
 
 export const AddMovieForm = (): JSX.Element => {
+    const dispatch = useAppDispatch();
+
+    const handleFormSubmit = (values: AddMovieFormValues) => {
+        const modifiedValues = getFormModifiedValues(values, initialValues);
+
+        moviesApi.createMovie(modifiedValues).then((data) => {
+            console.log("data", data);
+            dispatch(closeModal());
+        });
+    };
+
     const formik = useFormik({
         initialValues,
         validate,
         onSubmit: (values) => {
-            console.log(JSON.stringify(values, null, 2));
+            handleFormSubmit(values);
         },
     });
 
@@ -86,7 +47,7 @@ export const AddMovieForm = (): JSX.Element => {
                         type="text"
                         placeholder="Movie"
                         onChange={formik.handleChange}
-                        value={formik.values.title}
+                        value={formik.values.title || ""}
                     />
                     {formik.errors.title ? (
                         <ErrorMessage>{formik.errors.title}</ErrorMessage>
@@ -94,59 +55,63 @@ export const AddMovieForm = (): JSX.Element => {
                 </FieldContainer>
 
                 <FieldContainer>
-                    <label htmlFor="movieUrl">movie url</label>
+                    <label htmlFor="poster_path">movie url</label>
                     <input
-                        id="movieUrl"
+                        id="poster_path"
                         type="url"
                         placeholder="https://"
                         onChange={formik.handleChange}
-                        value={formik.values.movieUrl}
-                    />{" "}
-                    {formik.errors.movieUrl ? (
-                        <ErrorMessage>{formik.errors.movieUrl}</ErrorMessage>
+                        value={formik.values.poster_path || ""}
+                    />
+                    {formik.errors.poster_path ? (
+                        <ErrorMessage>{formik.errors.poster_path}</ErrorMessage>
                     ) : null}
                 </FieldContainer>
 
                 <FieldContainer>
-                    <label htmlFor="genre">genre</label>
+                    <label htmlFor="genres">genre</label>
                     <Select
                         options={GENRES}
-                        id="genre"
+                        id="genres"
                         onChange={(value) =>
-                            formik.setFieldValue("genre", value)
+                            formik.setFieldValue("genres", [value])
                         }
                     />
-                    {formik.errors.genre ? (
-                        <ErrorMessage>{formik.errors.genre}</ErrorMessage>
+                    {formik.errors.genres ? (
+                        <ErrorMessage>{formik.errors.genres}</ErrorMessage>
                     ) : null}
                 </FieldContainer>
             </Column>
 
             <Column>
                 <FieldContainer>
-                    <label htmlFor="releaseDate">release date</label>
+                    <label htmlFor="release_date">release date</label>
                     <input
-                        id="releaseDate"
+                        id="release_date"
                         type="date"
                         placeholder="Select Date"
                         onChange={formik.handleChange}
-                        value={formik.values.releaseDate}
+                        value={formik.values.release_date || ""}
                     />
-                    {formik.errors.releaseDate ? (
-                        <ErrorMessage>{formik.errors.releaseDate}</ErrorMessage>
+                    {formik.errors.release_date ? (
+                        <ErrorMessage>
+                            {formik.errors.release_date}
+                        </ErrorMessage>
                     ) : null}
                 </FieldContainer>
                 <FieldContainer>
-                    <label htmlFor="rating">rating</label>
+                    <label htmlFor="vote_average">rating</label>
                     <input
-                        id="rating"
+                        id="vote_average"
                         type="number"
                         placeholder="7.8"
                         onChange={formik.handleChange}
-                        value={formik.values.rating}
+                        value={formik.values.vote_average || ""}
                     />
-                    {formik.errors.rating ? (
-                        <ErrorMessage>{formik.errors.rating}</ErrorMessage>
+                    {formik.errors.vote_average ? (
+                        <ErrorMessage>
+                            {formik.errors.vote_average}
+                        </ErrorMessage>
                     ) : null}
                 </FieldContainer>
                 <FieldContainer>
@@ -156,7 +121,7 @@ export const AddMovieForm = (): JSX.Element => {
                         type="number"
                         placeholder="minutes"
                         onChange={formik.handleChange}
-                        value={formik.values.runtime}
+                        value={formik.values.runtime || ""}
                     />
                     {formik.errors.runtime ? (
                         <ErrorMessage>{formik.errors.runtime}</ErrorMessage>
@@ -171,7 +136,7 @@ export const AddMovieForm = (): JSX.Element => {
                         id="overview"
                         placeholder="Movie Description"
                         onChange={formik.handleChange}
-                        value={formik.values.overview}
+                        value={formik.values.overview || ""}
                         rows={6}
                     />
                     {formik.errors.overview ? (

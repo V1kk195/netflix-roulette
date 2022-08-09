@@ -8,6 +8,7 @@
         "import/prefer-default-export": "off",
         "react/require-default-props": "off",
         "@typescript-eslint/no-shadow": "off",
-        "import/extensions": "off"
+        "import/extensions": "off",
+        "padding-line-between-statements": "warn"
     }
 }
