@@ -1,33 +1,30 @@
 import * as React from "react";
-import { IdName } from "../../types/global.types";
-import { SORT_OPTIONS } from "../../constants";
-import { useAppDispatch } from "../../state";
-import { fetchSortedMovies } from "../../state/movies";
 import { SyntheticEvent, useState } from "react";
+
+import { IdName } from "../../types/global.types";
 
 type Props = {
     options: IdName[];
     className?: string;
     id?: string;
+    onChange?: (optionId: string) => any;
+    defaultValue?: string;
 };
 
-export const Select = ({ options, className, id }: Props): JSX.Element => {
-    const dispatch = useAppDispatch();
-    const [value, setValue] = useState(SORT_OPTIONS.releaseDate);
-
-    const fetchMovies = async (id: SORT_OPTIONS): Promise<void> => {
-        try {
-            await dispatch(fetchSortedMovies(id)).unwrap();
-        } catch (error) {
-            console.error(error);
-        }
-    };
+export const Select = ({
+    options,
+    className,
+    id,
+    onChange,
+    defaultValue = options[0].id,
+}: Props): JSX.Element => {
+    const [value, setValue] = useState(defaultValue);
 
     const handleChange = (
         e: SyntheticEvent<HTMLSelectElement, Event>
     ): void => {
-        fetchMovies(e.currentTarget.value as SORT_OPTIONS);
-        setValue(e.currentTarget.value as SORT_OPTIONS);
+        setValue(e.currentTarget.value);
+        onChange && onChange(e.currentTarget.value);
     };
 
     return (
