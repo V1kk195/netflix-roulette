@@ -26,6 +26,13 @@ class MoviesApi {
             body: JSON.stringify(body),
         }).then((res) => res.json());
     }
+
+    public deleteMovie(movieId: string): Promise<any> {
+        return fetch(`${this.baseUrl}/movies/${movieId}`, {
+            method: "DELETE",
+            headers: { "Content-Type": "application/json" },
+        }).then((res) => res.json());
+    }
 }
 
 export const moviesApi = new MoviesApi();

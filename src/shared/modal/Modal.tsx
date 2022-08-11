@@ -17,9 +17,14 @@ type Props = {
     title: MODAL_TYPES | null;
     formId?: string;
     children: ReactNode;
+    buttons?: boolean;
 };
 
-export const Modal = ({ title, children }: Props): JSX.Element => {
+export const Modal = ({
+    title,
+    children,
+    buttons = true,
+}: Props): JSX.Element => {
     const dispatch = useAppDispatch();
 
     const handleClose = (e: any): void => {
@@ -46,12 +51,14 @@ export const Modal = ({ title, children }: Props): JSX.Element => {
 
                     {children}
 
-                    <ButtonsContainer>
-                        <ButtonModal type="button">Reset</ButtonModal>
-                        <ButtonModal type="submit" form={title}>
-                            Submit
-                        </ButtonModal>
-                    </ButtonsContainer>
+                    {buttons && (
+                        <ButtonsContainer>
+                            <ButtonModal type="button">Reset</ButtonModal>
+                            <ButtonModal type="submit" form={title}>
+                                Submit
+                            </ButtonModal>
+                        </ButtonsContainer>
+                    )}
                 </ModalContainer>
             </Overlay>
         )
