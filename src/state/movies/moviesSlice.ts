@@ -17,6 +17,7 @@ export interface MoviesState {
     loading: string;
     currentRequestId: string;
     error: null | SerializedError;
+    currentMovie: Movie;
 }
 
 const initialState: MoviesState = {
@@ -28,6 +29,7 @@ const initialState: MoviesState = {
     loading: "idle",
     currentRequestId: undefined,
     error: null,
+    currentMovie: null,
 };
 
 const moviesSlice = createSlice({
@@ -40,6 +42,9 @@ const moviesSlice = createSlice({
         closeMovieDetails: (state) => {
             state.movieDetails = null;
         },
+        setCurrentMovie: (state, action: PayloadAction<Movie>) => {
+            state.currentMovie = action.payload;
+        },
     },
     extraReducers: (builder) => {
         fetchAllMoviesReducer(builder);
@@ -49,8 +54,11 @@ const moviesSlice = createSlice({
 });
 
 export default moviesSlice.reducer;
-export const { openMovieDetails, closeMovieDetails } = moviesSlice.actions;
+export const { openMovieDetails, closeMovieDetails, setCurrentMovie } =
+    moviesSlice.actions;
 export const selectMovies = (state: RootState) => state.movies.moviesList;
 export const selectMoviesTotal = (state: RootState) => state.movies.moviesTotal;
 export const selectMovieDetails = (state: RootState) =>
     state.movies.movieDetails;
+export const selectCurrentMovie = (state: RootState) =>
+    state.movies.currentMovie;

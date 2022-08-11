@@ -14,15 +14,14 @@ import CloseIcon from "../../../public/assets/icons/close-button.svg";
 import { MODAL_TYPES } from "../../types/global.types";
 import { useAppDispatch } from "../../state";
 import { openModal } from "../../state/modal/modalSlice";
+import { setCurrentMovie } from "../../state/movies";
+import { Movie } from "../../types/movies.types";
 
 type Props = {
-    title: string;
-    image?: string;
-    year: string;
-    genres: string[];
+    movie: Movie;
 };
 
-export function MovieItem({ title, genres, image, year }: Props): JSX.Element {
+export function MovieItem({ movie }: Props): JSX.Element {
     const dispatch = useAppDispatch();
 
     const [isMenuButtonVisible, setIsMenuButtonVisible] =
@@ -42,6 +41,7 @@ export function MovieItem({ title, genres, image, year }: Props): JSX.Element {
     };
 
     const handleMenuItemClick = (title: MODAL_TYPES): void => {
+        dispatch(setCurrentMovie(movie));
         dispatch(openModal(title));
     };
 
@@ -51,7 +51,10 @@ export function MovieItem({ title, genres, image, year }: Props): JSX.Element {
             onMouseLeave={handleItemLeave}
             style={{ position: "relative" }}
         >
-            <Poster imageUrl={image} alt={`${title} poster`} />
+            <Poster
+                imageUrl={movie.poster_path}
+                alt={`${movie.title} poster`}
+            />
             <MenuButton
                 type="button"
                 isVisible={isMenuButtonVisible}
@@ -75,10 +78,10 @@ export function MovieItem({ title, genres, image, year }: Props): JSX.Element {
 
             <Row>
                 <div>
-                    <h2 style={{ marginBottom: "8px" }}>{title}</h2>
-                    <p>{genres.join(", ")}</p>
+                    <h2 style={{ marginBottom: "8px" }}>{movie.title}</h2>
+                    <p>{movie.genres.join(", ")}</p>
                 </div>
-                <Year>{year}</Year>
+                <Year>{movie.release_date}</Year>
             </Row>
         </div>
     );

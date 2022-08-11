@@ -18,6 +18,14 @@ class MoviesApi {
             body: JSON.stringify(body),
         }).then((res) => res.json());
     }
+
+    public updateMovie(body: Movie): Promise<Movie> {
+        return fetch(`${this.baseUrl}/movies`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(body),
+        }).then((res) => res.json());
+    }
 }
 
 export const moviesApi = new MoviesApi();
