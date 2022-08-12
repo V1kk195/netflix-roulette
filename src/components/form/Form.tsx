@@ -6,11 +6,17 @@ type Props = {
     children: ReactNode;
     id?: string;
     onSubmit?: (e?: React.FormEvent<HTMLFormElement>) => void;
+    className?: string;
 };
 
-export const Form = ({ children, id, ...rest }: Props): JSX.Element => {
+export const Form = ({
+    children,
+    id,
+    className,
+    ...rest
+}: Props): JSX.Element => {
     return (
-        <FormElem id={id} {...rest}>
+        <FormElem id={id} className={className} {...rest}>
             {children}
         </FormElem>
     );

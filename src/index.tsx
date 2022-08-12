@@ -18,7 +18,10 @@ root.render(
                         path="/"
                         element={<Navigate to="/search" replace={true} />}
                     />
-                    <Route path="search" element={<App />} />
+                    <Route path="search">
+                        <Route path=":searchQuery" element={<App />} />
+                        <Route index element={<App />} />
+                    </Route>
                 </Routes>
             </Provider>
         </BrowserRouter>

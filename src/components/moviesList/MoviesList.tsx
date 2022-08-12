@@ -1,8 +1,10 @@
 import * as React from "react";
+import { useEffect, useMemo } from "react";
+import { useParams, useSearchParams } from "react-router-dom";
+
 import { MovieItem } from "../movieItem";
 import { Grid } from "../../shared/grid";
 import { MoviesCount } from "./MoviesList.styles";
-import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../state";
 import {
     fetchAllMovies,
@@ -11,15 +13,22 @@ import {
     selectMoviesTotal,
 } from "../../state/movies";
 import { Movie } from "../../types/movies.types";
-import { useSearchParams } from "react-router-dom";
 
 export function MoviesList(): JSX.Element {
     const dispatch = useAppDispatch();
+    const { searchQuery } = useParams();
+    const [searchParams] = useSearchParams();
 
     const movies = useAppSelector(selectMovies);
     const moviesTotal = useAppSelector(selectMoviesTotal);
 
-    const [searchParams] = useSearchParams();
+    const query = useMemo(() => {
+        return searchQuery
+            ? `searchBy=title&search=${searchQuery}${
+                  searchParams.toString() && "&"
+              }${searchParams}`
+            : `${searchParams}`;
+    }, [searchParams, searchQuery]);
 
     const handleCardClick = (movie: Movie): void => {
         dispatch(openMovieDetails(movie));
@@ -27,7 +36,7 @@ export function MoviesList(): JSX.Element {
 
     const fetchMovies = async () => {
         try {
-            await dispatch(fetchAllMovies(searchParams.toString())).unwrap();
+            await dispatch(fetchAllMovies(query)).unwrap();
         } catch (error) {
             console.log(error);
         }
@@ -35,7 +44,7 @@ export function MoviesList(): JSX.Element {
 
     useEffect(() => {
         fetchMovies();
-    }, []);
+    }, [searchQuery]);
 
     return (
         <div>
