@@ -1,7 +1,8 @@
 import * as React from "react";
+import { useSearchParams } from "react-router-dom";
 
 import { Sort } from "../sort";
-import { FiltersRow, List } from "./Filters.styles";
+import { FiltersRow, LiItem, List } from "./Filters.styles";
 import { Genres } from "../../types/movies.types";
 import { useAppDispatch } from "../../state";
 import { fetchFilteredMovies } from "../../state/movies";
@@ -9,6 +10,9 @@ import { categories } from "../../constants";
 
 export function Filters(): JSX.Element {
     const dispatch = useAppDispatch();
+    const [searchParams, setSearchParams] = useSearchParams();
+
+    const genreQuery = searchParams?.get("genre");
 
     const fetchMovies = async (genre: Genres): Promise<void> => {
         try {
@@ -19,17 +23,27 @@ export function Filters(): JSX.Element {
     };
 
     const handleClick = (genre: Genres): void => {
-        fetchMovies(genre);
+        fetchMovies(genre).then(() => {
+            setSearchParams({ genre }, { replace: true });
+        });
     };
 
     return (
         <FiltersRow>
             <List>
-                <li onClick={() => handleClick("")}>All</li>
+                <LiItem active={!genreQuery} onClick={() => handleClick("")}>
+                    All
+                </LiItem>
                 {categories.map((item) => (
-                    <li key={item} onClick={() => handleClick(item)}>
+                    <LiItem
+                        active={
+                            genreQuery?.toLowerCase() === item?.toLowerCase()
+                        }
+                        key={item}
+                        onClick={() => handleClick(item)}
+                    >
                         {item}
-                    </li>
+                    </LiItem>
                 ))}
             </List>
             <Sort />

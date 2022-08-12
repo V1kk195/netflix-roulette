@@ -23,11 +23,19 @@ export function MoviesList(): JSX.Element {
     const moviesTotal = useAppSelector(selectMoviesTotal);
 
     const query = useMemo(() => {
-        return searchQuery
+        let query = searchQuery
             ? `searchBy=title&search=${searchQuery}${
                   searchParams.toString() && "&"
               }${searchParams}`
             : `${searchParams}`;
+
+        const genreQuery = searchParams?.get("genre");
+
+        if (genreQuery) {
+            query = `${query}&filter=${genreQuery}&sortOrder=desc&limit=30`;
+        }
+
+        return query;
     }, [searchParams, searchQuery]);
 
     const handleCardClick = (movie: Movie): void => {
