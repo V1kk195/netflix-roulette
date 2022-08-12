@@ -12,7 +12,10 @@ export const ModalContainer = (): JSX.Element => {
     const modalName = useSelector(selectModalName);
 
     return (
-        <Modal title={modalName}>
+        <Modal
+            title={modalName}
+            buttons={modalName !== MODAL_TYPES.deleteMovie}
+        >
             {modalName === MODAL_TYPES.addMovie && <AddMovieForm />}
             {modalName === MODAL_TYPES.editMovie && <EditMovieForm />}
             {modalName === MODAL_TYPES.deleteMovie && <DeleteMovieForm />}

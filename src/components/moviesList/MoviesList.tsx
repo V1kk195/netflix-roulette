@@ -43,12 +43,7 @@ export function MoviesList(): JSX.Element {
                         onClick={() => handleCardClick(movie)}
                         style={{ cursor: "pointer" }}
                     >
-                        <MovieItem
-                            genres={movie.genres}
-                            title={movie.title}
-                            year={movie.release_date}
-                            image={movie.poster_path}
-                        />
+                        <MovieItem movie={movie} />
                     </div>
                 ))}
             </Grid>

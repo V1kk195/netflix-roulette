@@ -27,8 +27,12 @@ export const ModalContainer = styled.div`
     input,
     select {
         height: 45px;
+    }
+
+    input,
+    select,
+    textarea {
         border: none;
-        margin-bottom: 30px;
         background-color: rgba(50, 50, 50, 0.95);
         padding: 15px;
     }

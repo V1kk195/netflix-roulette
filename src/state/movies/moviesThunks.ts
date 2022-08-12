@@ -15,7 +15,7 @@ export const fetchAllMovies = createAsyncThunk(
     "movies/fetchAllMovies",
     async (): Promise<MoviesResponse> => {
         return await moviesApi.getAllMovies(
-            "sortBy=release_date&sortOrder=desc&limit30"
+            "sortBy=release_date&sortOrder=desc&limit=30"
         );
     },
     {
