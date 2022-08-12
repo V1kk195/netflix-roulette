@@ -14,6 +14,16 @@ import {
 } from "../../state/movies";
 import { Movie } from "../../types/movies.types";
 
+const queriesNames = {
+    rating: "vote_average",
+    ["release date"]: "release_date",
+    release_date: "release_date",
+    releasedate: "release_date",
+    title: "title",
+    genre: "genres",
+    runtime: "runtime",
+};
+
 export function MoviesList(): JSX.Element {
     const dispatch = useAppDispatch();
     const { searchQuery } = useParams();
@@ -23,16 +33,19 @@ export function MoviesList(): JSX.Element {
     const moviesTotal = useAppSelector(selectMoviesTotal);
 
     const query = useMemo(() => {
-        let query = searchQuery
-            ? `searchBy=title&search=${searchQuery}${
-                  searchParams.toString() && "&"
-              }${searchParams}`
-            : `${searchParams}`;
+        let query = searchQuery ? `searchBy=title&search=${searchQuery}` : "";
 
         const genreQuery = searchParams?.get("genre");
+        const sortByQuery = searchParams?.get("sortBy");
 
         if (genreQuery) {
-            query = `${query}&filter=${genreQuery}&sortOrder=desc&limit=30`;
+            query = `${query}&filter=${genreQuery}`;
+        }
+
+        if (sortByQuery) {
+            query = `${query}&sortBy=${
+                (queriesNames as any)[sortByQuery]
+            }&sortOrder=desc&limit=30`;
         }
 
         return query;
@@ -52,7 +65,7 @@ export function MoviesList(): JSX.Element {
 
     useEffect(() => {
         fetchMovies();
-    }, [searchQuery]);
+    }, [searchQuery, query]);
 
     return (
         <div>

@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 import { Sort } from "../sort";
 import { FiltersRow, LiItem, List } from "./Filters.styles";
@@ -11,6 +11,7 @@ import { categories } from "../../constants";
 export function Filters(): JSX.Element {
     const dispatch = useAppDispatch();
     const [searchParams, setSearchParams] = useSearchParams();
+    const navigate = useNavigate();
 
     const genreQuery = searchParams?.get("genre");
 
@@ -24,7 +25,7 @@ export function Filters(): JSX.Element {
 
     const handleClick = (genre: Genres): void => {
         fetchMovies(genre).then(() => {
-            setSearchParams({ genre }, { replace: true });
+            navigate(`/search?genre=${genre}`);
         });
     };
 
