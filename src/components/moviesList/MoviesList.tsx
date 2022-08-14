@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useEffect, useMemo } from "react";
-import { useParams, useSearchParams } from "react-router-dom";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 
 import { MovieItem } from "../movieItem";
 import { Grid } from "../../shared/grid";
@@ -8,7 +8,6 @@ import { MoviesCount } from "./MoviesList.styles";
 import { useAppDispatch, useAppSelector } from "../../state";
 import {
     fetchAllMovies,
-    openMovieDetails,
     selectMovies,
     selectMoviesTotal,
 } from "../../state/movies";
@@ -28,6 +27,7 @@ export function MoviesList(): JSX.Element {
     const dispatch = useAppDispatch();
     const { searchQuery } = useParams();
     const [searchParams] = useSearchParams();
+    const navigate = useNavigate();
 
     const movies = useAppSelector(selectMovies);
     const moviesTotal = useAppSelector(selectMoviesTotal);
@@ -52,7 +52,7 @@ export function MoviesList(): JSX.Element {
     }, [searchParams, searchQuery]);
 
     const handleCardClick = (movie: Movie): void => {
-        dispatch(openMovieDetails(movie));
+        navigate(`?movie=${movie.id}`);
     };
 
     const fetchMovies = async () => {
