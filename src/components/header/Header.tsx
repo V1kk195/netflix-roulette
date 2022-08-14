@@ -44,7 +44,7 @@ export function Header(): JSX.Element {
             {movieId ? (
                 <>
                     <Row style={{ alignItems: "center" }}>
-                        <Link to="/">
+                        <Link to="/" replace={true}>
                             <img src={LogoImg} alt="netflix roulette logo" />
                         </Link>
                         <ButtonSearch type="button" onClick={handleSearchClick}>
