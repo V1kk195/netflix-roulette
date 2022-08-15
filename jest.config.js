@@ -6,6 +6,11 @@ const config = {
     collectCoverage: true,
     collectCoverageFrom: ["src/**/*.{js,jsx,ts,tsx}"],
     coverageDirectory: "coverage",
+    coverageThreshold: {
+        global: {
+            lines: 70,
+        },
+    },
     transform: {
         "^.+\\.(js?)$": "babel-jest",
         "^.+\\.tsx?$": "ts-jest",
