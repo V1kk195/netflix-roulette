@@ -9,6 +9,7 @@ module.exports = merge(common, {
         chunkFilename: "[name][contenthash].bundle.js",
         path: path.resolve(__dirname, "build"),
         clean: true,
+        publicPath: "/",
     },
     devServer: {
         client: {

@@ -1,16 +1,19 @@
 import styled from "styled-components";
-import { Button } from "../../shared/button";
 
-export const Form = styled.form`
+import { Button } from "../../shared/button";
+import { Input } from "../../shared/input";
+import { Form } from "../form";
+
+export const FormElem = styled(Form)`
     height: 57px;
     display: flex;
     gap: 15px;
     margin: 0 auto;
 `;
 
-export const Input = styled.input`
+export const InputElem = styled(Input)`
     background-color: rgba(50, 50, 50, 0.8);
-    width: 75%;
+    width: 70%;
     border: none;
     font-weight: 400;
     font-size: 20px;

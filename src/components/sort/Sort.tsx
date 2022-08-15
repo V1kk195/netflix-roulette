@@ -1,9 +1,9 @@
 import * as React from "react";
+import { useSearchParams } from "react-router-dom";
 
 import { Label, SelectElem } from "./Sort.styles";
 import { IdName } from "../../types/global.types";
 import { SORT_OPTIONS } from "../../constants";
-import { fetchSortedMovies } from "../../state/movies";
 import { useAppDispatch } from "../../state";
 
 const options: IdName[] = [
@@ -16,13 +16,15 @@ const options: IdName[] = [
 
 export function Sort(): JSX.Element {
     const dispatch = useAppDispatch();
+    const [searchParams, setSearchParams] = useSearchParams();
 
-    const fetchMovies = async (id: SORT_OPTIONS): Promise<void> => {
-        try {
-            await dispatch(fetchSortedMovies(id)).unwrap();
-        } catch (error) {
-            console.error(error);
-        }
+    const sortBy = searchParams.get("sortBy");
+
+    const handleChange = (id: SORT_OPTIONS): void => {
+        setSearchParams(
+            { sortBy: options.find((item) => item.id === id).name },
+            { replace: true }
+        );
     };
 
     return (
@@ -30,8 +32,10 @@ export function Sort(): JSX.Element {
             <Label>Sort by</Label>
             <SelectElem
                 options={options}
-                onChange={fetchMovies}
-                defaultValue={SORT_OPTIONS.releaseDate}
+                onChange={handleChange}
+                defaultValue={
+                    (SORT_OPTIONS as any)?.[sortBy] || SORT_OPTIONS.releaseDate
+                }
             />
         </div>
     );

@@ -13,10 +13,8 @@ const conditionFetchIfNeeded = (stateField: string, getState: () => any) => {
 
 export const fetchAllMovies = createAsyncThunk(
     "movies/fetchAllMovies",
-    async (): Promise<MoviesResponse> => {
-        return await moviesApi.getAllMovies(
-            "sortBy=release_date&sortOrder=desc&limit=30"
-        );
+    async (searchParams: string): Promise<MoviesResponse> => {
+        return await moviesApi.getAllMovies(searchParams);
     },
     {
         condition: (arg, { getState }) =>

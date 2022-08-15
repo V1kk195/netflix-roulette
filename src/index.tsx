@@ -1,17 +1,31 @@
 import * as React from "react";
 import { createRoot } from "react-dom/client";
 import { Provider } from "react-redux";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 import { App } from "./components/app";
 import { GlobalStyle } from "./global.css.js";
 import { store } from "./state";
+import { NotFound } from "./components/notFound";
 
 const root = createRoot(document.getElementById("root"));
 root.render(
     <React.StrictMode>
-        <Provider store={store}>
-            <GlobalStyle />
-            <App />
-        </Provider>
+        <BrowserRouter>
+            <Provider store={store}>
+                <GlobalStyle />
+                <Routes>
+                    <Route
+                        path="/"
+                        element={<Navigate to="/search" replace={true} />}
+                    />
+                    <Route path="search">
+                        <Route path=":searchQuery" element={<App />} />
+                        <Route index element={<App />} />
+                    </Route>
+                    <Route path="*" element={<NotFound />} />
+                </Routes>
+            </Provider>
+        </BrowserRouter>
     </React.StrictMode>
 );

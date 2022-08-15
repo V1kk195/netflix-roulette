@@ -1,29 +1,44 @@
 import * as React from "react";
+import { useSearchParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+
 import { Row } from "../../shared/allignment";
 import { Container, Poster } from "./MovieDetails.styles";
-import { Movie } from "../../types/movies.types";
+import { moviesApi } from "../../api";
 
-type Props = {
-    movie: Movie;
-};
+export const MovieDetails = (): JSX.Element => {
+    const [searchParams] = useSearchParams();
+    const movieId = searchParams.get("movie");
 
-export const MovieDetails = ({
-    movie: { poster_path, title, genres, release_date, vote_average, overview },
-}: Props): JSX.Element => {
+    const [movie, setMovie] = useState(null);
+
+    useEffect(() => {
+        if (movieId) {
+            moviesApi.getMovie(movieId).then((movie) => {
+                setMovie(movie);
+            });
+        }
+    }, [movieId]);
+
     return (
-        <Container>
-            <Poster imageUrl={poster_path} alt={`${title} poster`} />
-            <div>
-                <Row>
-                    <h1>{title}</h1>
-                    <span>{vote_average}</span>
-                    <p>{genres}</p>
-                </Row>
+        movie && (
+            <Container>
+                <Poster
+                    imageUrl={movie.poster_path}
+                    alt={`${movie.title} poster`}
+                />
+                <div>
+                    <Row>
+                        <h1>{movie.title}</h1>
+                        <span>{movie.vote_average}</span>
+                        <p>{movie.genres}</p>
+                    </Row>
 
-                <span>{release_date}</span>
+                    <span>{movie.release_date}</span>
 
-                <p>{overview}</p>
-            </div>
-        </Container>
+                    <p>{movie.overview}</p>
+                </div>
+            </Container>
+        )
     );
 };

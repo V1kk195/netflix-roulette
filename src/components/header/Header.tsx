@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useSelector } from "react-redux";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 
 import LogoImg from "../../../public/assets/logo.svg";
 import { Search } from "../search";
@@ -16,42 +16,43 @@ import SearchIcon from "../../../public/assets/icons/search-icon.svg";
 import { Row } from "../../shared/allignment";
 import { useAppDispatch } from "../../state";
 import { openModal } from "../../state/modal/modalSlice";
-import {
-    closeMovieDetails,
-    selectMovieDetails,
-} from "../../state/movies/moviesSlice";
 
 export function Header(): JSX.Element {
     const dispatch = useAppDispatch();
-    const movieDetails = useSelector(selectMovieDetails);
+    const navigate = useNavigate();
+
+    const [searchParams] = useSearchParams();
+    const movieId = searchParams.get("movie");
 
     const handleAddMovieModal = (): void => {
         dispatch(openModal(MODAL_TYPES.addMovie));
     };
 
     const handleSearchClick = (): void => {
-        dispatch(closeMovieDetails());
+        navigate(``);
     };
 
     return (
         <HeaderContainer
             style={
-                movieDetails && {
+                movieId && {
                     backgroundColor: "#232323",
                     backgroundImage: "none",
                 }
             }
         >
-            {movieDetails ? (
+            {movieId ? (
                 <>
                     <Row style={{ alignItems: "center" }}>
-                        <img src={LogoImg} alt="netflix roulette logo" />
+                        <Link to="/" replace={true}>
+                            <img src={LogoImg} alt="netflix roulette logo" />
+                        </Link>
                         <ButtonSearch type="button" onClick={handleSearchClick}>
                             <img src={SearchIcon} alt={"search icon"} />
                         </ButtonSearch>
                     </Row>
                     <MainBlock>
-                        <MovieDetails movie={movieDetails} />
+                        <MovieDetails />
                     </MainBlock>
                 </>
             ) : (

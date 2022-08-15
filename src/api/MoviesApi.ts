@@ -33,6 +33,12 @@ class MoviesApi {
             headers: { "Content-Type": "application/json" },
         }).then((res) => res.json());
     }
+
+    public getMovie(movieId: string): Promise<Movie> {
+        return fetch(`${this.baseUrl}/movies/${movieId}`, {
+            method: "GET",
+        }).then((res) => res.json());
+    }
 }
 
 export const moviesApi = new MoviesApi();

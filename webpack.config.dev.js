@@ -9,6 +9,7 @@ module.exports = merge(common, {
         chunkFilename: "[name].bundle.js",
         path: path.resolve(__dirname, "dev"),
         clean: true,
+        publicPath: "/",
     },
     devtool: "source-map",
     devServer: {
@@ -22,6 +23,7 @@ module.exports = merge(common, {
         open: true,
         watchFiles: ["src/**/*", "public/**/*"],
         port: 8000,
+        historyApiFallback: true,
     },
     optimization: {
         runtimeChunk: "single",
