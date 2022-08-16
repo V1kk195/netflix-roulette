@@ -39,7 +39,7 @@ export const Modal = ({
     return (
         !!title && (
             <Overlay isVisible={!!title} onClick={handleClose}>
-                <ModalContainer className="modal">
+                <ModalContainer className="modal" role="dialog">
                     <ButtonClose
                         className="buttonClose"
                         type="button"
