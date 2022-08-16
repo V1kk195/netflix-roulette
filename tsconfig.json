@@ -9,7 +9,8 @@
         "moduleResolution": "node",
         "sourceMap": true,
         "baseUrl": ".",
-        "esModuleInterop": true
+        "esModuleInterop": true,
+        "types": ["cypress", "@testing-library/cypress"]
     },
     "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.js", "src/**/*.jsx"],
     "exclude": ["node_modules"]
