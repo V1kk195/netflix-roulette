@@ -5,6 +5,7 @@ const config = {
     testEnvironment: "jsdom",
     collectCoverage: true,
     collectCoverageFrom: ["src/**/*.{js,jsx,ts,tsx}"],
+    coveragePathIgnorePatterns: ["index.ts", ".d.ts", ".styles.tsx"],
     coverageDirectory: "coverage",
     coverageThreshold: {
         global: {
